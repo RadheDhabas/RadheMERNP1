@@ -1,0 +1,42 @@
+body{
+    scroll-behavior: smooth;
+}
+.product_listing{
+    overflow: hidden;
+}
+.home_banner_bg{
+    height: 100vh;
+    background-image: url(https://websitedemos.net/t-shirts-store-04/wp-content/uploads/sites/1115/2022/07/bg-01.jpg);
+    background-position: center center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-attachment: fixed;
+   position: relative;
+   overflow: hidden;
+
+    .overlay{
+        position: absolute; 
+        top: 0;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        background-color: black;
+        opacity: 0.2; 
+        z-index: 0;
+    }
+
+   .bnner_text{
+    font-size: 10px;
+    text-align: center;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%,-50%);
+    z-index: 1;
+    .bg_text1{
+color: white;
+font-size: 13px;
+font-weight: 400;
+    }
+       }
+}

@@ -4,6 +4,7 @@ import Layout from "./Layout/Layout";
 import { AuthContext } from "../Context/authContext";
 import axios from "axios";
 import { Prices } from "./PriceFilter";
+import Home_banner from "../elements/Home_banner";
 
 function Home() {
   const [auth, setAuth] = useContext(AuthContext);
@@ -34,7 +35,7 @@ function Home() {
       const categories = await axios.get(
         `${process.env.REACT_APP_USER_AUTH}/api/category/get-categories`
       );
-      setCategories(categories.data?.categories);
+      setCategories(categories?.data?.categories);
     } catch (error) {
       console.log(error);
     }
@@ -93,7 +94,9 @@ function Home() {
   }
  
   return (
-    <Layout>
+    <Layout> 
+      <Home_banner></Home_banner>
+      <div className="product_listing">
       <div className="container-fluid m-3 p-3">
         <div className="row">
           <div className="col-md-3">
@@ -156,6 +159,7 @@ function Home() {
             </div>
           </div>
         </div>
+      </div>
       </div>
     </Layout>
   );
