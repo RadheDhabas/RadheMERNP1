@@ -21,8 +21,7 @@ body{
         left: 0;
         right: 0;
         background-color: black;
-        opacity: 0.2; 
-        z-index: 0;
+        opacity: 0.1;  
     }
 
    .bnner_text{
@@ -32,11 +31,21 @@ body{
     top: 50%;
     left: 50%;
     transform: translate(-50%,-50%);
-    z-index: 1;
+    
     .bg_text1{
 color: white;
 font-size: 13px;
 font-weight: 400;
+    }
+    .home_page_header{
+        color: white;
+font-size: 32px;
+font-weight: 600;
+    }
+    .home_page_subheader{
+        color: white;
+        font-size: 24px;
+        font-weight: 600;
     }
        }
 }

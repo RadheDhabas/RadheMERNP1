@@ -10,10 +10,10 @@ function Home_banner() {
     <p className='bg_text1'>
     NEW COLLECTION
     </p>
-    <h1>
+    <h1 className='home_page_header'>
     Be different in your own way!
     </h1>
-    <h2>
+    <h2 className='home_page_subheader'>
     Find your unique style.
     </h2>
     <button>

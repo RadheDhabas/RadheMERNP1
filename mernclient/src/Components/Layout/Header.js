@@ -21,7 +21,7 @@ const Header = () => {
     <nav className="navbar navbar-expand-md navbar-dark bg-dark">
       <div className="container-fluid">
         <Link className="navbar-brand" to="/">
-          iNotebook
+          Warrior K
         </Link>
         <button
           className="navbar-toggler"
@@ -77,7 +77,14 @@ const Header = () => {
             >
               Logout
             </Link>
+            
           )}
+          <Link
+                className="btn btn-primary"
+                to="/cart"
+              >
+                Cart
+              </Link>
         </div>
       </div>
     </nav>

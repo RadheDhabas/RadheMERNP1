@@ -19,10 +19,13 @@ import UpDelProduct from "./Components/Admin/UpDelProduct.js";
 import { SearchProvider } from "./Context/searchContext.js";
 import Search from "./Components/Search.js";
 import ProductDetails from "./Components/ProductDetails.js";
+import { CartProvider } from "./Context/cartContext.js";
+import Cart from "./Components/Cart.js";
  
 function App() { 
   return (
     <AuthProvider>
+      <CartProvider>
       <SearchProvider>
       <Router>
         <Routes>
@@ -32,6 +35,7 @@ function App() {
           <Route path="/forgot-password" element={<ForgetPass />} />
           <Route path="/login" element={<Login />} />
           <Route path="/search" element={<Search />} />
+          <Route path="/cart" element={<Cart />} />
           <Route path="/product/:slug" element={<ProductDetails />} />
          
             <Route path="/dashboard" element={<PrivateRoute />}>
@@ -52,6 +56,7 @@ function App() {
         </Routes>
       </Router>
       </SearchProvider>
+      </CartProvider>
     </AuthProvider>
   );
 }
