@@ -21,6 +21,7 @@ import Search from "./Components/Search.js";
 import ProductDetails from "./Components/ProductDetails.js";
 import { CartProvider } from "./Context/cartContext.js";
 import Cart from "./Components/Cart.js";
+import EmptyPage from "./Components/EmptyPage.js";
  
 function App() { 
   return (
@@ -52,7 +53,7 @@ function App() {
               <Route path="/admin/create-product" element={<CreateProducts />} />
               <Route path="/admin/users" element={<User />} />
             </Route>
-          
+            <Route path="*" element={<EmptyPage />} />
         </Routes>
       </Router>
       </SearchProvider>

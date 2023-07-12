@@ -1,12 +1,14 @@
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import Layout from "./Layout/Layout";
 import { useParams } from "react-router-dom";
 import { Link } from "react-router-dom";
 import axios from "axios";
+import { CartContext } from "../Context/cartContext";
 
 function ProductDetails() {
   const [product, setProduct] = useState({});
   const [similarProduct, setSimilarProduct] = useState([]);
+const {cart,setCart,addToCart} = useContext(CartContext);
 
   const prams = useParams();
   useEffect(() => {
@@ -41,7 +43,7 @@ function ProductDetails() {
             <p>Description: {product.description}</p>
             <p>Price: ₹{product.price}</p>
             <div className="buttons">
-              <button>Add to cart</button>
+              <button onClick={()=>addToCart(product)}>Add to cart</button>
               <button>Add to Wishlist</button>
             </div>
           </div>

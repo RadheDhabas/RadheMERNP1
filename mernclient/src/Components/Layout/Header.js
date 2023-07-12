@@ -2,12 +2,14 @@ import React, { useContext, useState } from "react";
 import { Link, useLocation } from "react-router-dom";
 import { AuthContext } from "../../Context/authContext";
 import SearchProduct from "../SearchBox";
+import '../../CSS/Header.scss'
+import { CartContext } from "../../Context/cartContext";
 
 const Header = () => {
   let location = useLocation();
 
   const [auth, setAuth] = useContext(AuthContext);
-  
+  const {cart} = useContext(CartContext);
   const handelLogout = () => {
     setAuth({
       ...auth,
@@ -80,9 +82,9 @@ const Header = () => {
             
           )}
           <Link
-                className="btn btn-primary"
+                className="header_cart_btn"
                 to="/cart"
-              >
+              > <span className="num_of_item">{cart.reduce((a,b)=>b.quantity+a,0)}</span>
                 Cart
               </Link>
         </div>

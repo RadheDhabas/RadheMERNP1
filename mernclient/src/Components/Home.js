@@ -5,6 +5,7 @@ import { AuthContext } from "../Context/authContext";
 import axios from "axios";
 import { Prices } from "./PriceFilter";
 import Home_banner from "../elements/Home_banner";
+import { CartContext } from "../Context/cartContext";
 
 function Home() {
   const [auth, setAuth] = useContext(AuthContext);
@@ -12,6 +13,7 @@ function Home() {
   const [categories, setCategories] = useState([]);
   const [filterCat, setFilterCat] = useState([]);
   const [filterPrice, setFilterPrice] = useState([]);
+  const {addToCart} = useContext(CartContext);
   useEffect(() => {
     getProducts();
     getAllCategory();
@@ -139,10 +141,7 @@ function Home() {
                     key={product._id}
                   >
                     <div className="product_card card">
-                      <Link
-                        to={`/product/${product.slug}`}
-                        className="product-link"
-                      >
+                     
                         <div>
                           <img
                             src={product.photo}
@@ -152,7 +151,14 @@ function Home() {
                         </div>
                         <p>{product.name}</p>
                         <p>Rs. {product.price} </p>
-                      </Link>
+                        <div>
+                        <Link
+                        to={`/product/${product.slug}`}
+                        className="product-link"
+                      > View Detail </Link>
+                      <button className="" onClick={()=>addToCart(product)}>Add to Cart</button>
+                        </div>
+                     
                     </div>
                   </div>
                 ))}
