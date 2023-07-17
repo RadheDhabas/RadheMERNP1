@@ -4,7 +4,7 @@ import '../CSS/cartpage.css'
 import { CartContext } from '../Context/cartContext'
 import { useNavigate } from 'react-router-dom';
 function Cart() {
-  const { cart, setCart, IncreaseQnty, DecreaseQnty, ResetCart, RemoveItem, cart_value, cart_quantity } = useContext(CartContext);
+  const { cart, setCart, IncreaseQnty, DecreaseQnty, ResetCart, RemoveItem, cart_value, cart_quantity,handleCheckout } = useContext(CartContext);
   const navigate = useNavigate();
 
   return (
@@ -51,7 +51,7 @@ function Cart() {
                   </div>
                   <div className="total-amount">{cart_value()}</div>
                 </div>
-                <button className="button">Checkout</button></div>
+                <button className="button" onClick={()=>handleCheckout()}>Checkout</button></div>
             </div>
           </div>
         </div >
