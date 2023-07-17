@@ -1,9 +1,10 @@
-import { createContext, useEffect, useState } from "react";
+import { createContext, useContext, useEffect, useState } from "react";
 import axios from 'axios';
+import { AuthContext } from "./authContext";
 const CartContext = createContext();
 const CartProvider = ({ children }) => {
   const [cart, setCart] = useState([]);
-
+  const [auth, setAuth] = useContext(AuthContext);
   useEffect(() => {
     let cart_exist = JSON.parse(localStorage.getItem('cart'));
     if (cart_exist) {
@@ -67,7 +68,7 @@ const CartProvider = ({ children }) => {
 
   // for payment handling
   const handleCheckout = async () => {
-    try { 
+    try {
       const response = (await axios.post(`${process.env.REACT_APP_USER_AUTH}/payment/orders`, { cart }));
       if (!response) {
         alert("Server error. Are you online?");
@@ -86,17 +87,33 @@ const CartProvider = ({ children }) => {
         //  image: { logo },
         order_id: order_id,
         handler: async function (response) {
+
+          //this response is given by razorpay after making payment
+
           const data = {
             orderCreationId: order_id,
             razorpayPaymentId: response.razorpay_payment_id,
             razorpayOrderId: response.razorpay_order_id,
             razorpaySignature: response.razorpay_signature,
+            amount: amount,
+            cart
           };
-          
-          const result = await axios.post(`${process.env.REACT_APP_USER_AUTH}/payment/verify`, data);
 
-          alert(result.data.msg);
-
+          const result = await axios.post(`${process.env.REACT_APP_USER_AUTH}/payment/verify`,
+            data,
+            {
+              headers: {
+                "Content-Type": "application/json",
+                "auth-token": auth?.token,
+              }
+            },
+          );
+          if(result.data){
+            localStorage.removeItem('cart');
+            setCart([]);
+            
+          }
+          // here we can show messages like order placed or something else
         },
       };
 

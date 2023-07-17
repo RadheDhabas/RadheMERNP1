@@ -4,7 +4,7 @@ import Orders from '../models/OrderModel.js';
 
 export const paymentOrderController = async(req,res)=>{
 try {
-    
+    const cart = req.body.cart;
     const netValue = req.body.cart.reduce((a, b) => a + b.quantity * b.price, 0)
     var instance = new Razorpay({
         key_id: process.env.RAZORPAY_KEY_ID,
@@ -18,15 +18,8 @@ try {
     const result = await instance.orders.create(options);
 
         if (!result) return res.status(500).send("Some error occured in payment order controller");
- else{
+
     res.json(result);
-    const order = await Orders.create({
-        products:cart,
-        payment:result.amount,
-        buyer:req.user._id,
-       
-    })
- }
         
 } catch (error) {
      res.status(500).send("error in payment controller"+error);
@@ -36,7 +29,7 @@ try {
 // verify payment 
 export const paymentVerifyController = async(req,res)=>{
     try {
-        const {orderCreationId,razorpayPaymentId,razorpayOrderId,razorpaySignature} = req.body;
+        const {orderCreationId,razorpayPaymentId,razorpayOrderId,razorpaySignature,amount,cart} = req.body;
         var instance = new Razorpay({
             key_id: process.env.RAZORPAY_KEY_ID,
             key_secret: process.env.RAZORPAY_SECRET,
@@ -52,6 +45,11 @@ export const paymentVerifyController = async(req,res)=>{
 
       // THE PAYMENT IS LEGIT & VERIFIED
       // YOU CAN SAVE THE DETAILS IN YOUR DATABASE IF YOU WANT
+      const order = await Orders.create({
+        products:cart,
+        payment:amount,
+        buyer:req.user.id, 
+    }) ;
 
       res.json({
           msg: "success",
