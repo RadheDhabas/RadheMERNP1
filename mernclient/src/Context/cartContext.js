@@ -1,10 +1,12 @@
 import { createContext, useContext, useEffect, useState } from "react";
 import axios from 'axios';
 import { AuthContext } from "./authContext";
+import { useNavigate } from "react-router-dom";
 const CartContext = createContext();
 const CartProvider = ({ children }) => {
   const [cart, setCart] = useState([]);
   const [auth, setAuth] = useContext(AuthContext);
+
   useEffect(() => {
     let cart_exist = JSON.parse(localStorage.getItem('cart'));
     if (cart_exist) {
@@ -79,7 +81,7 @@ const CartProvider = ({ children }) => {
       const { amount, id: order_id, currency } = response.data;
 
       const options = {
-        key: "rzp_test_EdfFsmww3UNixU", // Enter the Key ID generated from the Dashboard
+        key: process.env.REACT_APP_KEY_SECRET, // Enter the Key ID generated from the Dashboard
         amount: amount.toString(),
         currency: currency,
         name: "Bhaskar Ind.",
@@ -111,10 +113,11 @@ const CartProvider = ({ children }) => {
           if(result.data){
             localStorage.removeItem('cart');
             setCart([]);
-            
+            window.location.href = "/dashboard/orders"
           }
           // here we can show messages like order placed or something else
         },
+        
       };
 
       const paymentObject = new window.Razorpay(options);

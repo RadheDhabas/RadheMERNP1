@@ -7,7 +7,7 @@ import Spinner from '../Components/Spinner';
 export default function PrivateRoute() {
   const [ok, setOk] = useState(false);
   const [auth] = useContext(AuthContext);
-console.log(auth);
+ 
   useEffect(() => {
     const authCheck = async () => {
       const response = await axios.get(`${process.env.REACT_APP_USER_AUTH}/api/auth/getuser`, {
@@ -15,8 +15,7 @@ console.log(auth);
           "auth-token": auth.token
         }
       });
-let json  =  response;
-console.log(json)
+let json  =  response; 
       if (json.data.success) {
         setOk(true);
       } else {
