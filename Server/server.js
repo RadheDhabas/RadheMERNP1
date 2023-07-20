@@ -8,7 +8,7 @@ import order from './routes/orders.js'
 import cors from "cors";
 import connectToDb from "./configures/db.js"; 
 dotenv.config() 
-connectToDb();
+connectToDb(); 
 
 const app = express();
 app.use(cors());
