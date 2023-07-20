@@ -1,12 +1,12 @@
 import express from "express";
 import dotenv from "dotenv";
-import auth from "./Server/routes/auth.js"
-import category from './Server/routes/categoriesRoutes.js'
-import payment from './Server/routes/payment.js'
-import product from './Server/routes/productRouter.js'
-import order from './Server/routes/orders.js'
+import auth from "./routes/auth.js"
+import category from './routes/categoriesRoutes.js'
+import payment from './routes/payment.js'
+import product from './routes/productRouter.js'
+import order from './routes/orders.js'
 import cors from "cors";
-import connectToDb from "./Server/configures/db.js"; 
+import connectToDb from "./configures/db.js"; 
 dotenv.config() 
 connectToDb();
 
