@@ -1,20 +1,117 @@
-.header_cart_btn {
-    position: relative;
-    padding: 2px 7px;
-    border-radius: 5px;
-    background-color: white;
-    border: 1px solid white;
+.main_header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 30px;
 
-    .num_of_item{
-        position: absolute;
-        left: -25px;
-        top: 0px;
-        height: 25px;
-        width: 25px;
-        text-align: center;
-        background-color: orange; 
-        display: inline;
-        border-radius: 100px;
-        color: white;
+    .header_logo_category {
+        display: flex;
+        align-items: center;
+
+        .header_brand {
+            font-size: 26px;
+            text-decoration: none;
+            color: #262626;
+            font-weight: 600;
+        }
+
+        .header_category_list {
+            display: flex;
+            list-style: none;
+            margin: 0 0 0 40px;
+            padding: 0;
+
+            li .nav_link {
+                display: inline-block;
+                text-decoration: none;
+                font-size: 14px;
+                line-height: 45px;
+                padding: 0 15px;
+                letter-spacing: 1px;
+                position: relative;
+                color: #262626;
+                font-weight: 500;
+            }
+        }
     }
+
+    .header_scl {
+        display: flex;
+        align-items: center;
+
+        .header_search {
+            margin-right: 30px;
+
+            form {
+                position: relative;
+
+                input {
+                    width: 300px;
+                    border-radius: 5px;
+                    padding: 10px 36px 10px 10px;
+                    border: 1px solid #2626263d;
+                    height: 36px;
+                    box-shadow: none;
+                    background-color: #fff;
+                    text-align: left;
+                    color: #262626;
+                    outline: none;
+                }
+
+                .header_search_btn {
+                    position: absolute;
+                    top: 0;
+                    bottom: 0;
+                    right: 0px;
+                    padding: 0 10px;
+                    background-color: transparent;
+                    border: none;
+                    outline: none;
+                    border-left: 1px solid #2626263d;
+                }
+            }
+        }
+
+        .header_login_btn {
+            border: 1px solid #262626;
+            background-color: #262626;
+            color: white;
+            text-decoration: none;
+            border-radius: 5px;
+            padding: 5px 13px;
+            font-size: 14px;
+            font-weight: 500;
+            margin-right: 40px;
+
+            svg {
+                margin: 0 0 5px 7px;
+            }
+        }
+
+        .header_cart_btn {
+            position: relative;
+            text-decoration: none;
+
+            svg {
+                height: 26px;
+            }
+
+            span {
+                position: absolute;
+                display: inline-block;
+                height: 20px;
+                width: 20px;
+                border-radius: 15px;
+                background-color: #670c90;
+                font-size: 12px;
+                font-weight: 500;
+                text-align: center;
+                line-height: 20px;
+                color: #fff;
+                top: -3px;
+                left: -15px;
+            }
+        }
+    }
+
 }
