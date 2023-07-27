@@ -1,13 +1,16 @@
 import React, { useContext, useState } from "react";
 import { Link, useLocation } from "react-router-dom";
+import Modal from 'react-bootstrap/Modal'
 import { AuthContext } from "../../Context/authContext";
 import SearchProduct from "../SearchBox";
 import '../../CSS/Header.scss'
 import { CartContext } from "../../Context/cartContext";
+import HeaderMobile from "./HeaderMobile";
 
 const Header = () => {
   let location = useLocation();
-
+const [showSearchModel,setShowSearchModel] = useState(false);
+const [fullscreen, setFullscreen] = useState(true);
   const [auth, setAuth] = useContext(AuthContext);
   const { cart } = useContext(CartContext);
   const handelLogout = () => {
@@ -19,13 +22,14 @@ const Header = () => {
     localStorage.removeItem("token");
   };
 
-  return (
+  return (<>
     <nav className="main_header container-fluid">
       <div className="header_logo_category">
+        <HeaderMobile></HeaderMobile>
         <Link className="header_brand" to="/">
           Warrior K
         </Link>
-        <ul className="header_category_list">
+        <ul className="header_category_list for_pc_only">
           <li className="">
             <Link
               className={`nav_link ${location.pathname === "/" ? "active" : ""
@@ -57,10 +61,12 @@ const Header = () => {
         </ul>
       </div>
       <div className="header_scl">
+        <div className="for_pc_only">
         <SearchProduct></SearchProduct>
+        </div>
         {!auth.user ? (
-          <>
-            <Link className="header_login_btn" to="/login" role="button">
+          <div>
+            <Link className="header_login_btn for_pc_only" to="/login" role="button">
               Login
               <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
                 <g clip-path="url(#clip0_1979_421)">
@@ -73,7 +79,7 @@ const Header = () => {
                 </defs>
               </svg>
             </Link>
-          </>
+          </div>
         ) : (
           <Link
             className="btn btn-primary mx-1"
@@ -85,16 +91,31 @@ const Header = () => {
           </Link>
 
         )}
+        <button className="header_search_btn_for_mob" onClick={()=>setShowSearchModel(true)}>
+          <svg xmlns="http://www.w3.org/2000/svg" height="1em" viewBox="0 0 512 512">
+            <path d="M416 208c0 45.9-14.9 88.3-40 122.7L502.6 457.4c12.5 12.5 12.5 32.8 0 45.3s-32.8 12.5-45.3 0L330.7 376c-34.4 25.2-76.8 40-122.7 40C93.1 416 0 322.9 0 208S93.1 0 208 0S416 93.1 416 208zM208 352a144 144 0 1 0 0-288 144 144 0 1 0 0 288z" /></svg>
+        </button>
         <Link
           className="header_cart_btn"
           to="/cart"
-        > { (cart.length>0) && <span className="num_of_item">{cart.reduce((a, b) => b.quantity + a, 0)}</span>}
+        > {(cart.length > 0) && <span className="num_of_item">{cart.reduce((a, b) => b.quantity + a, 0)}</span>}
           <svg xmlns="http://www.w3.org/2000/svg" height="1em" viewBox="0 0 448 512">
             <path d="M160 112c0-35.3 28.7-64 64-64s64 28.7 64 64v48H160V112zm-48 48H48c-26.5 0-48 21.5-48 48V416c0 53 43 96 96 96H352c53 0 96-43 96-96V208c0-26.5-21.5-48-48-48H336V112C336 50.1 285.9 0 224 0S112 50.1 112 112v48zm24 48a24 24 0 1 1 0 48 24 24 0 1 1 0-48zm152 24a24 24 0 1 1 48 0 24 24 0 1 1 -48 0z" />
-            </svg>
+          </svg>
         </Link>
       </div>
     </nav>
+    <Modal show={showSearchModel} fullscreen={fullscreen} onHide={() => setShowSearchModel(false)}>
+        
+        <Modal.Body className="text-center mob_search_modal">
+        <SearchProduct></SearchProduct>
+        <button className="mob_search_close_btn">
+        <svg xmlns="http://www.w3.org/2000/svg" height="16px" width="16px" viewBox="0 0 384 512">
+          <path d="M342.6 150.6c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0L192 210.7 86.6 105.4c-12.5-12.5-32.8-12.5-45.3 0s-12.5 32.8 0 45.3L146.7 256 41.4 361.4c-12.5 12.5-12.5 32.8 0 45.3s32.8 12.5 45.3 0L192 301.3 297.4 406.6c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L237.3 256 342.6 150.6z"/></svg>
+        </button>
+        </Modal.Body>
+      </Modal>
+  </>
   );
 };
 
