@@ -42,7 +42,7 @@ export const registerController = async(req,res)=>{
     res.status(200).json({message:"account created"})
     } catch (error) {
         console.error(error.message);
-        res.status(500).send("Internal Server error aayi h");
+        res.status(500).send("Internal Server error at the time of creating account");
     }
 
 }

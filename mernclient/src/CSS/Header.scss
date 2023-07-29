@@ -56,7 +56,7 @@
             color: white;
             text-decoration: none;
             border-radius: 5px;
-            padding: 5px 13px;
+            padding: 7px 13px;
             font-size: 14px;
             font-weight: 500;
             margin-right: 40px;
@@ -144,11 +144,16 @@
     .for_pc_only {
         display: none !important;
     }
-
+.for_pc_n_tab_only{
+    display: none;
+}
     .main_header .mobile_header_sidemenu_btn {
         display: inline-block;
+        
     }
-
+    .main_header .mobile_header_sidemenu{
+        max-width: 275px;
+    }
     .main_header {
         padding: 12px 15px;
 
@@ -178,20 +183,22 @@
         margin-right: 0;
     }
 
-    .header_search form .header_search_btn {
-        right: 15px;
-    }
+    
 
     .mob_search_modal {
         position: relative;
+        display: flex;
+        justify-content: space-between;
 
         .mob_search_close_btn {
-            border: 1px solid #404040;
+            border: none;
             outline: none;
             background-color: white; 
             border-radius: 100%;
-            text-align: center;
-            padding: 5px 6px;
+            text-align: left;
+            height: 36px;
+            width: 36px; 
+            padding: 0;
             svg{
                  
             }

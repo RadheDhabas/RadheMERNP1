@@ -4,8 +4,9 @@ import Layout from "./Layout/Layout";
 import { Link } from "react-router-dom";
 
 function Search() {
-  const [searchProduct, setSearchProduct] = useContext(SearchContext);
-  console.log(searchProduct);
+  const {searchProduct, setSearchProduct,searchedKeyword} = useContext(SearchContext);
+  console.log(searchProduct); 
+  console.log(searchedKeyword)
   return (
     <Layout>
       <div className="container">

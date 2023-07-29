@@ -4,15 +4,15 @@ import { useNavigate } from 'react-router-dom';
 
 function SearchProduct() {
   const navigate = useNavigate();
-  const [searchKeyword, setSearchKeyword] = useState("");
-  const [searchProduct, setSearchProduct] = useContext(SearchContext);
+  const {searchProduct, setSearchProduct,searchedKeyword,setSearchedKeyword} = useContext(SearchContext);
   const handelSearch = async (e) => {
     e.preventDefault();
     try {
-      if(searchKeyword.length>0){
-      const response = await fetch(`${process.env.REACT_APP_USER_AUTH}/api/product/search/${searchKeyword}`);
+      if(searchedKeyword.length>0){
+      const response = await fetch(`${process.env.REACT_APP_USER_AUTH}/api/product/search/${searchedKeyword}`);
       let json = await response.json();
       setSearchProduct(json);
+      localStorage.setItem("setSearchedKeyword",setSearchedKeyword);
       navigate('/search');
     } }catch (error) {
       console.error(error);
@@ -23,8 +23,10 @@ function SearchProduct() {
       <form role="search" onSubmit={handelSearch}>
         <input type="search"
           placeholder="Search"
-          aria-label="Search"
-          onChange={(e) => { setSearchKeyword(e.target.value) }}
+          aria-label="Search"  
+          autoFocus = {(window.innerWidth<768)?true:false}
+          onChange={(e) => { setSearchedKeyword(e.target.value) }}
+          
         />
         <button className="header_search_btn" type="submit" >
           <svg width="14" height="14" viewBox="0 0 14 14" fill="#404040" xmlns="http://www.w3.org/2000/svg">
