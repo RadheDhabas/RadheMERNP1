@@ -1,4 +1,5 @@
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import { GoogleOAuthProvider } from '@react-oauth/google';
 import Home from "./Components/Home.js";
 import About from "./Components/About.js";
 import SignUp from "./Components/SignUp.js";
@@ -22,43 +23,48 @@ import ProductDetails from "./Components/ProductDetails.js";
 import { CartProvider } from "./Context/cartContext.js";
 import Cart from "./Components/Cart.js";
 import EmptyPage from "./Components/EmptyPage.js";
- 
-function App() { 
+import { WishlistProvider } from "./Context/wishlistContext.js";
+
+function App() {
   return (
-    <AuthProvider>
-      <CartProvider>
-      <SearchProvider>
-      <Router>
-        <Routes>
-          <Route path="/" element={<Home />} />
-          <Route path="/about" element={<About />} />
-          <Route path="/signup" element={<SignUp />} />
-          <Route path="/forgot-password" element={<ForgetPass />} />
-          <Route path="/login" element={<Login />} />
-          <Route path="/search" element={<Search />} />
-          <Route path="/cart" element={<Cart />} />
-          <Route path="/product/:slug" element={<ProductDetails />} />
-         
-            <Route path="/dashboard" element={<PrivateRoute />}>
-              <Route path="" element={<Dashboard />} />
-              <Route path="/dashboard/orders" element={<Orders />} />
-              <Route path="/dashboard/profile" element={<UserProfle />} />
-            </Route>
-           
-            <Route path="/admin" element={<AdminPrivateRoute />}> 
-              <Route path="" element={<AdminDashboard />} />
-              <Route path="/admin/products" element={<Products />} />
-              <Route path="/admin/product/manage/:slug" element={<UpDelProduct />} />
-              <Route path="/admin/create-category" element={<CreateCategories />} />
-              <Route path="/admin/create-product" element={<CreateProducts />} />
-              <Route path="/admin/users" element={<User />} />
-            </Route>
-            <Route path="*" element={<EmptyPage />} />
-        </Routes>
-      </Router>
-      </SearchProvider>
-      </CartProvider>
-    </AuthProvider>
+    <GoogleOAuthProvider clientId={process.env.REACT_APP_GOOGLE_CLIENT_ID}>
+      <AuthProvider>
+        <WishlistProvider>
+          <CartProvider>
+            <SearchProvider>
+              <Router>
+                <Routes>
+                  <Route path="/" element={<Home />} />
+                  <Route path="/about" element={<About />} />
+                  <Route path="/signup" element={<SignUp />} />
+                  <Route path="/forgot-password" element={<ForgetPass />} />
+                  <Route path="/login" element={<Login />} />
+                  <Route path="/search" element={<Search />} />
+                  <Route path="/cart" element={<Cart />} />
+                  <Route path="/product/:slug" element={<ProductDetails />} />
+
+                  <Route path="/dashboard" element={<PrivateRoute />}>
+                    <Route path="" element={<Dashboard />} />
+                    <Route path="/dashboard/orders" element={<Orders />} />
+                    <Route path="/dashboard/profile" element={<UserProfle />} />
+                  </Route>
+
+                  <Route path="/admin" element={<AdminPrivateRoute />}>
+                    <Route path="" element={<AdminDashboard />} />
+                    <Route path="/admin/products" element={<Products />} />
+                    <Route path="/admin/product/manage/:slug" element={<UpDelProduct />} />
+                    <Route path="/admin/create-category" element={<CreateCategories />} />
+                    <Route path="/admin/create-product" element={<CreateProducts />} />
+                    <Route path="/admin/users" element={<User />} />
+                  </Route>
+                  <Route path="*" element={<EmptyPage />} />
+                </Routes>
+              </Router>
+            </SearchProvider>
+          </CartProvider>
+        </WishlistProvider>
+      </AuthProvider>
+    </GoogleOAuthProvider>
   );
 }
 

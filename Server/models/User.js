@@ -9,17 +9,27 @@ const UserSchema = new Schema({
     email: {
         type: String,
         required: true,
-        unique:true
+        unique: true
     },
     role: {
         type: Number,
         default: 0,
-      },
+    },
+    googleId: {
+        type: String,
+    },
     password: {
         type: String,
-        required: true
+        required: function(){
+            // The password field is required only for manual registration
+            return this.googleId ? false : true;
+        },
+    },
+  
+    googleEmail: {
+        type: String,
     },
     date: { type: Date, default: Date.now },
 });
-const User = mongoose.model('User', UserSchema); 
+const User = mongoose.model('User', UserSchema);
 export default User

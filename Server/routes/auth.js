@@ -1,6 +1,6 @@
 import express from "express"; 
 import { body, validationResult } from 'express-validator';
-import { forgotPasswordController, getUserController, loginController, registerController } from "../controller/authController.js";
+import { forgotPasswordController, getUserController, googleLoginController, loginController, registerController } from "../controller/authController.js";
 import {fetchUser, isAdmin} from "../middleware/fetchUser.js"
 
 
@@ -19,7 +19,8 @@ router.post('/login', [
     body('email', "Enter a valid email ").isEmail(),
     body('password', "Password cannot be blank").exists()
 ], loginController)
-
+// login using google auth
+router.post('/google-login', googleLoginController)
 // forgot password endpoint
 router.post('/forgotpassword',forgotPasswordController)
 
