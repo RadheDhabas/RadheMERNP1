@@ -4,21 +4,21 @@ const WishlistContext = createContext();
 const WishlistProvider = ({ children }) => {
 
     const [wishlist, setWishlist] = useState([]);
-    useEffect(() => {
-        // console.log(wishlist);
-    }, [wishlist]);
-
-    const updateWishlist = async (p_id) => {
-        let itempresent = wishlist.indexOf(p_id);
-        console.log(itempresent);
-        if (itempresent>=0) { 
-            let new_wl = wishlist.filter(i => i != p_id);
+    const updateWishlist = (p_id)=>{
+        let itempresent = wishlist.includes(p_id);
+        if (itempresent) {
+            let new_wl = wishlist.filter(i => i !== p_id);
             setWishlist(new_wl);
         }
         else { 
-            wishlist.push(p_id);
-        }  
+            setWishlist([...wishlist,p_id]);
+        }
+       
+
     }
+    useEffect(()=>{
+        console.log(wishlist)
+    },[wishlist.length])
     return (
         <WishlistContext.Provider value={{ wishlist, setWishlist, updateWishlist }}>
             {children}

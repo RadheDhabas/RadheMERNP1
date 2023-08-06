@@ -13,8 +13,8 @@ const Header = () => {
   const [showSearchModel, setShowSearchModel] = useState(false);
   const [fullscreen, setFullscreen] = useState(true);
   const [auth, setAuth] = useContext(AuthContext);
-  const { cart } = useContext(CartContext);
-  const {wishlist} = useContext(WishlistContext);
+  const { cart} = useContext(CartContext);
+  const {wishlist,setWishlist} = useContext(WishlistContext);
   const handelLogout = () => {
     setAuth({
       ...auth,

@@ -13,7 +13,7 @@ function Home() {
   const [categories, setCategories] = useState([]);
   const [filterCat, setFilterCat] = useState([]);
   const [filterPrice, setFilterPrice] = useState([]); 
-  const {wishlist,updateWishlist} = useContext(WishlistContext);
+  const {wishlist,setWishlist,updateWishlist} = useContext(WishlistContext);
 const navigate = useNavigate();
   useEffect(() => {
     getProducts();
