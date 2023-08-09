@@ -15,3 +15,4 @@ useEffect(()=>{
     )
 }  
 export {SearchContext,SearchProvider};
+// svae searched word in localstorage

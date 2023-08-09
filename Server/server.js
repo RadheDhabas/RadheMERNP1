@@ -7,6 +7,7 @@ import product from './routes/productRouter.js'
 import order from './routes/orders.js'
 import cors from "cors";
 import connectToDb from "./configures/db.js"; 
+import cartWishlist from "./routes/cartWishlist.js"
 dotenv.config() 
 connectToDb(); 
 
@@ -23,7 +24,8 @@ const port = process.env.PORT;
     app.use('/api/category',category);
     app.use('/api/product',product);
     app.use("/payment", payment);
-    app.use('/api/orders',order)
+    app.use('/api/orders',order);
+    app.use('/api',cartWishlist);
     app.listen(port,()=>{
         console.log(`server is runing    on port: ${port}`)
     })

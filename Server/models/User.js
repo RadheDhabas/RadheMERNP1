@@ -20,15 +20,25 @@ const UserSchema = new Schema({
     },
     password: {
         type: String,
-        required: function(){
+        required: function () {
             // The password field is required only for manual registration
             return this.googleId ? false : true;
         },
     },
-  
+
     googleEmail: {
         type: String,
     },
+    wishlist: [
+        {
+            type: mongoose.ObjectId,
+            ref: 'Product'
+        }],
+    cart: [
+        {
+            type: mongoose.ObjectId,
+            ref: 'Product'
+        }],
     date: { type: Date, default: Date.now },
 });
 const User = mongoose.model('User', UserSchema);

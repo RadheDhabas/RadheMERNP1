@@ -6,8 +6,7 @@ const AuthProvider = ({children})=>{
 const [auth,setAuth] = useState({
     user:null,
     token:"",
-});
-
+}); 
 useEffect(()=>{
     const data = localStorage.getItem("token");
     if(data){
@@ -17,7 +16,7 @@ useEffect(()=>{
             ...auth,
             user:parseData.user,
             token:parseData.authToken
-        })
+        }) 
     } 
 },[])
     return(

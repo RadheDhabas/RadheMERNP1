@@ -22,14 +22,13 @@ import Search from "./Components/Search.js";
 import ProductDetails from "./Components/ProductDetails.js";
 import { CartProvider } from "./Context/cartContext.js";
 import Cart from "./Components/Cart.js";
-import EmptyPage from "./Components/EmptyPage.js";
-import { WishlistProvider } from "./Context/wishlistContext.js";
+import EmptyPage from "./Components/EmptyPage.js"; 
+import MyWishlist from "./Components/MyWishlist.js";
 
 function App() {
   return (
     <GoogleOAuthProvider clientId={process.env.REACT_APP_GOOGLE_CLIENT_ID}>
-      <AuthProvider>
-        <WishlistProvider>
+      <AuthProvider> 
           <CartProvider>
             <SearchProvider>
               <Router>
@@ -42,7 +41,7 @@ function App() {
                   <Route path="/search" element={<Search />} />
                   <Route path="/cart" element={<Cart />} />
                   <Route path="/product/:slug" element={<ProductDetails />} />
-
+                  <Route path="/my-wishlist" element={<MyWishlist />} />
                   <Route path="/dashboard" element={<PrivateRoute />}>
                     <Route path="" element={<Dashboard />} />
                     <Route path="/dashboard/orders" element={<Orders />} />
@@ -61,8 +60,7 @@ function App() {
                 </Routes>
               </Router>
             </SearchProvider>
-          </CartProvider>
-        </WishlistProvider>
+          </CartProvider> 
       </AuthProvider>
     </GoogleOAuthProvider>
   );

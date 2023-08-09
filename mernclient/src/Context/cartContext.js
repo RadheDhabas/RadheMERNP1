@@ -5,8 +5,9 @@ import { useNavigate } from "react-router-dom";
 const CartContext = createContext();
 const CartProvider = ({ children }) => {
   const [cart, setCart] = useState([]);
-  const [auth, setAuth] = useContext(AuthContext);
-
+  const [auth] = useContext(AuthContext);
+  const [wishlist, setWishlist] = useState([]);
+  const [localWl, setLocalWlt] = useState([]);
   useEffect(() => {
     let cart_exist = JSON.parse(localStorage.getItem('cart'));
     if (cart_exist) {
@@ -110,14 +111,14 @@ const CartProvider = ({ children }) => {
               }
             },
           );
-          if(result.data){
+          if (result.data) {
             localStorage.removeItem('cart');
             setCart([]);
             window.location.href = "/dashboard/orders"
           }
           // here we can show messages like order placed or something else
         },
-        
+
       };
 
       const paymentObject = new window.Razorpay(options);
@@ -128,8 +129,59 @@ const CartProvider = ({ children }) => {
     }
 
   };
+
+  // wishlist action start
+  const getWishlist = async () => {
+    try {
+      const response = await fetch(`${process.env.REACT_APP_USER_AUTH}/api/wishlist`, {
+        method: "GET",
+        headers: {
+          "auth-token": auth?.token,
+        }
+      })
+      const json = await response.json();
+      let new_wl = json.data.wishlist;
+      setWishlist(new_wl);
+    } catch (error) {
+      console.error(error)
+    }
+
+  }
+  const updateWishlist = async (p_id) => {
+
+    let itempresent = wishlist.includes(p_id);
+    if (itempresent) {
+      let upd_wl = wishlist.filter(i => i !== p_id);
+      setWishlist(upd_wl);
+      updateWlinDb(upd_wl);
+    }
+    else {
+      let upd_wl = wishlist;
+      upd_wl.push(p_id);
+      setLocalWlt([...localWl, p_id]);
+      updateWlinDb(upd_wl);
+    }
+
+  }
+  const updateWlinDb = async (upd_wl) => {
+    const response = await fetch(`${process.env.REACT_APP_USER_AUTH}/api/wishlist`, {
+      method: "PUT",
+      headers: {
+        "Content-Type": "application/json",
+        "auth-token": auth?.token,
+      },
+      body: JSON.stringify({ data: upd_wl })
+    });
+    const json = await response.json();
+  }
+  useEffect(() => {
+    if (auth?.user) {
+      getWishlist();
+    }
+  }, [auth?.user])
+  // wishlist action end
   return (
-    <CartContext.Provider value={{ cart, setCart, addToCart, IncreaseQnty, DecreaseQnty, ResetCart, RemoveItem, cart_quantity, cart_value, handleCheckout}}>
+    <CartContext.Provider value={{ cart, setCart, wishlist, setWishlist, addToCart, IncreaseQnty, DecreaseQnty, ResetCart, RemoveItem, cart_quantity, cart_value, handleCheckout, updateWishlist, getWishlist }}>
       {children}
     </CartContext.Provider>
   )

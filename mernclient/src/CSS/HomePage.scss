@@ -119,6 +119,13 @@ body {
         outline: none;
         padding: 5px;
 background-color: transparent;
+svg{
+    fill: #1918324f;
+}
+    }
+    .whislist_btn.wishlisted svg{
+        fill: #f20d69;
+
     }
 
 }

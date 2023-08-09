@@ -2,22 +2,21 @@ import React, { useState, useContext, useEffect } from 'react'
 import { useNavigate, useLocation, Link } from 'react-router-dom'
 import Layout from './Layout/Layout';
 import { GoogleLogin, useGoogleLogin } from '@react-oauth/google';
-import Google from './User/Google.js';
 import { AuthContext } from '../Context/authContext';
 import '../CSS/LoginSignup.scss';
-import axios from 'axios';
+import axios from 'axios'; 
 
 const url = process.env.REACT_APP_USER_AUTH;
 const Login = (props) => {
     const [credentials, setCredentials] = useState({ email: "", password: "" })
     let history = useNavigate();
     let location = useLocation();
-    let [auth, setAuth] = useContext(AuthContext);
-
+    let [auth, setAuth] = useContext(AuthContext); 
     useEffect(() => {
         if (auth?.user) {
-            history("/");
+            history("/"); 
         }
+        
     }, [auth, history]);
     const handleSubmit = async (e) => {
         e.preventDefault();

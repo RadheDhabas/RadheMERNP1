@@ -2,9 +2,9 @@ import React, { useContext, useEffect } from 'react'
 import Layout from './Layout/Layout'
 import '../CSS/cartpage.css'
 import { CartContext } from '../Context/cartContext'
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, Link } from 'react-router-dom';
 function Cart() {
-  const { cart, setCart, IncreaseQnty, DecreaseQnty, ResetCart, RemoveItem, cart_value, cart_quantity,handleCheckout } = useContext(CartContext);
+  const { cart, setCart, IncreaseQnty, DecreaseQnty, ResetCart, RemoveItem, cart_value, cart_quantity, handleCheckout } = useContext(CartContext);
   const navigate = useNavigate();
 
   return (
@@ -16,7 +16,9 @@ function Cart() {
               {cart && cart.map(i =>
                 <div className="row mt-3 align-items-center" key={i._id}>
                   <div className="col-3">
-                    <img src={i.photo} className='img-fluid' alt="" />
+                    <Link className="product_image" to={`/product/${i.slug}`}>
+                      <img src={i.photo} className='img-fluid' alt="" />
+                    </Link>
                   </div>
                   <div className="col-5">
                     <p>
@@ -51,7 +53,7 @@ function Cart() {
                   </div>
                   <div className="total-amount">{cart_value()}</div>
                 </div>
-                <button className="button" onClick={()=>handleCheckout()}>Checkout</button></div>
+                <button className="button" onClick={() => handleCheckout()}>Checkout</button></div>
             </div>
           </div>
         </div >
