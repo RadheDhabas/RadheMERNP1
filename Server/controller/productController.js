@@ -36,7 +36,7 @@ export const getAllProductController = async (req, res) => {
       .send({ products: products, length: products.length });
   } catch (error) {
     console.error(error);
-    res.send(500).send({ message: "Error in fetching products" });
+    res.status(500).send({ message: "Error in fetching products" });
   }
 };
 

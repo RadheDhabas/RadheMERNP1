@@ -1,4 +1,4 @@
-import { hashedPassword, passwordCompare } from "../helpers/authhelper.js";
+import { hashedPassword, passwordCompare } from "../helpers/authHelper.js";
 import jwt from 'jsonwebtoken';
 import User from '../models/User.js'
 import axios from 'axios'
