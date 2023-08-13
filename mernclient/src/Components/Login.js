@@ -28,7 +28,7 @@ const Login = (props) => {
             body: JSON.stringify({ email: credentials.email, password: credentials.password })
         });
         const json = await response.json()
-
+console.log(json);
         if (json && json.success) {
             // Save the auth token and redirect
             setAuth({
@@ -53,15 +53,14 @@ const Login = (props) => {
             try { 
                 let json = await axios.post(`${url}/api/auth/google-login`, { tokenId: res.access_token});
                 // const json = await response.json()
-
                 if (json && json?.data.success) {
                     // Save the auth token and redirect
                     setAuth({
                         ...auth,
                         token: json?.data.authToken,
-                        user: json?.data.existinguser
+                        user: json?.data.user
                     })
-                    localStorage.setItem('token', JSON.stringify(json));
+                    localStorage.setItem('token', JSON.stringify(json.data));
                     history(location.state || "/")
                 }
                 else {

@@ -95,7 +95,7 @@ export const googleLoginController = async (req, res) => {
             }
             const JWT_SECRET = process.env.JWT_SECRET;
             const authToken = jwt.sign(data, JWT_SECRET);
-            return res.status(200).json({ success: true, authToken, existinguser });
+            return res.status(200).json({ success: true, authToken, user:existinguser });
         }
         else {
             let user = await User.create({

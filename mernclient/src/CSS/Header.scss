@@ -50,21 +50,7 @@
         display: flex;
         align-items: center;
 
-        .header_login_btn {
-            border: 1px solid #262626;
-            background-color: #262626;
-            color: white;
-            text-decoration: none;
-            border-radius: 5px;
-            padding: 7px 13px;
-            font-size: 14px;
-            font-weight: 500;
-            margin-right: 10px;
 
-            svg {
-                margin: 0 0 5px 7px;
-            }
-        }
 
         .header_search_btn_for_mob {
             display: none;
@@ -163,9 +149,7 @@
         padding: 12px 15px;
 
         .header_logo_category .header_brand {
-            font-size: 18px;
-            ;
-
+            font-size: 20px;
         }
 
         .header_scl {
@@ -179,7 +163,14 @@
                 border: none;
                 background: transparent;
                 outline: none;
-                margin-right: 25px;
+                padding: 0;
+                margin-right: -5px;
+
+                svg {
+                    height: 20px;
+                    margin-top: 4px;
+
+                }
             }
         }
     }
@@ -204,13 +195,36 @@
             height: 36px;
             width: 36px;
             padding: 0;
-
-            svg {}
         }
     }
 
 }
 
+.mob_sidemenu_header {
+    border-bottom: 1px solid rgba(38, 38, 38, 0.1);
+    padding-bottom: 16px;
+}
+
+.header_login_btn {
+    border: 1px solid #262626;
+    background-color: #262626;
+    color: white;
+    text-decoration: none;
+    border-radius: 5px;
+    padding: 6px 13px;
+    font-size: 14px;
+    font-weight: 500;
+    margin-right: 10px;
+    display: inline-block;
+
+    svg {
+        margin: 0 0 5px 7px;
+    }
+}
+.mob_menu_header{
+    font-size: 16px;
+    
+}
 @media (min-width:768px) and (max-width:1080px) {
     .main_header .mobile_header_sidemenu_btn {
         display: inline-block;
@@ -218,5 +232,17 @@
 
     .for_pc_only {
         display: none !important;
+    }
+
+    .header_category_list {
+        padding: 0;
+        margin: 0;
+        list-style: none;
+
+        li .nav_link {
+            text-decoration: none;
+            font-size: 14px;
+            line-height: 36px;
+        }
     }
 }
