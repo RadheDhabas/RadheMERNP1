@@ -2,8 +2,11 @@ import React, { useContext, useEffect, useState } from "react";
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import Layout from "./Layout/Layout";
-import { useNavigate, Link } from "react-router-dom";
+import { useNavigate, Link,useLocation } from "react-router-dom";
 import { AuthContext } from "../Context/authContext";
+import { GoogleLogin, useGoogleLogin } from '@react-oauth/google';
+import axios from 'axios'; 
+
 const Signup = () => {
   const url = `${process.env.REACT_APP_USER_AUTH}/api/auth/createuser`;
 
@@ -14,6 +17,7 @@ const Signup = () => {
   });
   const [response, setResponse] = useState("");
   const navigate = useNavigate();
+  let location = useLocation();
   const [auth,setAuth] = useContext(AuthContext);
   useEffect(() => {
     if (auth?.user) {
@@ -51,6 +55,32 @@ const Signup = () => {
       autoClose: 2000,
       });
   };
+
+  const googleLogin = useGoogleLogin({
+    onSuccess: async (res) => {
+        try { 
+            let json = await axios.post(`${url}/api/auth/google-login`, { tokenId: res.access_token});
+            // const json = await response.json()
+            if (json && json?.data.success) {
+                // Save the auth token and redirect
+                setAuth({
+                    ...auth,
+                    token: json?.data.authToken,
+                    user: json?.data.user
+                })
+                localStorage.setItem('token', JSON.stringify(json.data));
+                navigate(location.state || "/")
+            }
+            else {
+                console.log(json)
+            }
+        } catch (error) {
+            console.error("Login Error", error);
+        }
+    },
+    
+}); 
+
   return (
     <Layout> 
       <div className='login_screen_form'>
@@ -58,7 +88,7 @@ const Signup = () => {
           <h1 className='form_heading'>Create account on Candela</h1>
           <div className='sign_google_box'>
             <form>
-              <button name="button" type="submit" className="sinin_with_google_btn">
+              <button name="button" onClick={()=>googleLogin()} className="sinin_with_google_btn">
                 <svg xmlns="http://www.w3.org/2000/svg" width={18} height={18} viewBox="0 0 18 18" fill="none" role="img" className="icon ">
                   <path fillRule="evenodd" clipRule="evenodd" d="M17.64 9.20419C17.64 8.56601 17.5827 7.95237 17.4764 7.36328H9V10.8446H13.8436C13.635 11.9696 13.0009 12.9228 12.0477 13.561V15.8192H14.9564C16.6582 14.2524 17.64 11.9451 17.64 9.20419Z" fill="#4285F4" />
                   <path fillRule="evenodd" clipRule="evenodd" d="M8.99976 18C11.4298 18 13.467 17.1941 14.9561 15.8195L12.0475 13.5613C11.2416 14.1013 10.2107 14.4204 8.99976 14.4204C6.65567 14.4204 4.67158 12.8372 3.96385 10.71H0.957031V13.0418C2.43794 15.9831 5.48158 18 8.99976 18Z" fill="#34A853" />

@@ -62,7 +62,7 @@
             margin-left: 28px;
 
             svg {
-                height: 26px;
+                height: 22px;
             }
 
             span {
@@ -127,6 +127,57 @@
     }
 }
 
+.after_login_profile_btn {
+    position: relative;
+    display: block;
+    transition: all 0.3s ease-in-out;
+
+    .user_submenu {
+        background: #fff;
+        box-shadow: 0 0 10px rgba(29, 69, 138, .1);
+        border: 1px solid rgba(38, 38, 38, 0.15);
+        border-radius: 5px;
+        padding: 10px 0;
+        position: absolute;
+        margin: 0;
+        list-style: none; 
+        left: -65px;
+        top: 160%;
+        width: 150px; 
+        z-index: 999; 
+        opacity: 0;
+        visibility: hidden; 
+        transition: all 0.3s ease-in-out;
+        li{
+            display: block;
+            line-height: 36px;
+            padding: 0px 18px;
+            font-weight: 400;
+            font-size: 14px;
+            &:hover{
+                background-color: rgba(140, 147, 158, 0.15);
+            }
+            a{
+                color: #404040 !important;
+                text-decoration: none;
+                svg {
+                    margin-right: 10px;
+                    margin-bottom: 4px;
+                    fill: #262626;
+                }
+            }
+        }
+    }
+}
+.after_login_profile_btn:hover .user_submenu{
+    opacity: 1;
+    visibility: visible;
+}
+.my_ac_btn {
+    display: inline-block;
+    padding: 0;
+}
+
 @media (min-width:200px) and (max-width:768px) {
     .for_pc_only {
         display: none !important;
@@ -141,8 +192,8 @@
 
     }
 
-    .main_header .mobile_header_sidemenu {
-        max-width: 275px;
+  .mobile_header_sidemenu {
+        max-width: 300px !important;
     }
 
     .main_header {
@@ -202,7 +253,7 @@
 
 .mob_sidemenu_header {
     border-bottom: 1px solid rgba(38, 38, 38, 0.1);
-    padding-bottom: 16px;
+    padding: 0 10px 16px;
 }
 
 .header_login_btn {
@@ -221,9 +272,40 @@
         margin: 0 0 5px 7px;
     }
 }
-.mob_menu_header{
+
+.mob_menu_header {
     font-size: 16px;
+
+}
+.header_category_list{
+    padding: 0;
+}
+.mob_explore_link{
+    display: block;
+    line-height: 42px;
+    padding: 0px 10px;
+    font-weight: 400;
+    font-size: 14px;
+    margin: 10px 0;
+    &:hover{
+        background-color: rgba(140, 147, 158, 0.15);
+        a{
+            color: #2874f0 !important;
+        }
+    }
+    a{
+        color: #404040 !important;
+        text-decoration: none;
+        display: block;
+        svg{
+            margin-right: 10px;
+        }
+    }
     
+}
+.mob_ligin_signup{
+    display: inline-block;
+    margin: 0 15px;
 }
 @media (min-width:768px) and (max-width:1080px) {
     .main_header .mobile_header_sidemenu_btn {

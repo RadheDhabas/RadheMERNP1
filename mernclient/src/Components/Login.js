@@ -28,7 +28,6 @@ const Login = (props) => {
             body: JSON.stringify({ email: credentials.email, password: credentials.password })
         });
         const json = await response.json()
-console.log(json);
         if (json && json.success) {
             // Save the auth token and redirect
             setAuth({
@@ -71,10 +70,7 @@ console.log(json);
             }
         },
         
-    });
-
-
-
+    }); 
     return (
         <Layout>
             <div className='login_screen_form'>

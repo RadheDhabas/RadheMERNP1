@@ -98,7 +98,7 @@ function Home() {
 
   return (
     <Layout>
-      <Home_banner></Home_banner>
+      {/* <Home_banner></Home_banner> */}
       <div className="product_listing">
         <div className="container my-4">
           <div className="row">
