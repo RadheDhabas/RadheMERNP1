@@ -30,7 +30,7 @@ function HeaderMobile({ handelLogout }) {
                 className={`nav_link ${location.pathname === "/" ? "active" : ""
                   }`}
                 aria-current="page"
-                to="/dashboard"
+                to="/my-account"
               >
                 My Profile
               </Link>

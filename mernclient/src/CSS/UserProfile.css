@@ -1,0 +1,13 @@
+.profile_infoLabel{
+    padding: 10px 0;
+    text-align: center;
+    font-weight: 600;
+    font-size: 20px;
+    border-bottom: 1px solid rgba(38, 38, 38,0.2);
+    margin-bottom: 20px;
+}
+.page-profile{
+    border: 1px solid rgba(38, 38, 38,0.2);
+    padding: 20px 20px;
+    margin-top: 20px;
+}

@@ -7,18 +7,23 @@ function UserMenu() {
         <div className="list-group ">
           <h4>User Panel</h4>
           <NavLink
-            to="/dashboard/profile"
+            to="/my-account"
             className="list-group-item list-group-item-action"
           >
             Profile
           </NavLink>
           <NavLink
-            to="/dashboard/orders"
+            to="/my-orders"
             className="list-group-item list-group-item-action"
           >
             Orders
           </NavLink>
-        
+          <NavLink
+            to="/my-wishlist"
+            className="list-group-item list-group-item-action"
+          >
+            Wishlist
+          </NavLink>
         </div>
       </div></>
   )

@@ -42,10 +42,11 @@ function App() {
                   <Route path="/cart" element={<Cart />} />
                   <Route path="/product/:slug" element={<ProductDetails />} />
                   <Route path="/my-wishlist" element={<MyWishlist />} />
-                  <Route path="/dashboard" element={<PrivateRoute />}>
-                    <Route path="" element={<Dashboard />} />
-                    <Route path="/dashboard/orders" element={<Orders />} />
-                    <Route path="/dashboard/profile" element={<UserProfle />} />
+                  <Route path="/my-account" element={<PrivateRoute />}>
+                    <Route path="" element={<UserProfle />} />
+                  </Route>
+                  <Route path="/my-orders" element={<PrivateRoute />}> 
+                    <Route path="" element={<Orders />} />
                   </Route>
 
                   <Route path="/admin" element={<AdminPrivateRoute />}>
