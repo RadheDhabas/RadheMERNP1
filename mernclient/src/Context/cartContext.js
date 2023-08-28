@@ -18,14 +18,15 @@ const CartProvider = ({ children }) => {
   //  item add to cart
   const addToCart = (item) => {
     const itemInCart = cart.find(i => i._id == item._id);
-    if (itemInCart) {
-      setCart(
-        cart.map(i => (i._id == item._id) ? { ...i, quantity: i.quantity + 1 } : { ...i })
-      )
-    }
-    else {
+    if (!itemInCart) {
       setCart([...cart, { ...item, quantity: 1 }]);
+   
     }
+    // else {
+    //   setCart(
+    //     cart.map(i => (i._id == item._id) ? { ...i, quantity: i.quantity + 1 } : { ...i })
+    //   )
+    // }
     localStorage.setItem('cart', JSON.stringify(cart));
   }
 
@@ -82,10 +83,10 @@ const CartProvider = ({ children }) => {
       const { amount, id: order_id, currency } = response.data;
 
       const options = {
-        key: process.env.REACT_APP_KEY_SECRET, // Enter the Key ID generated from the Dashboard
+        key: process.env.REACT_APP_RZ_KEY_ID, // Enter the Key ID generated from the Dashboard
         amount: amount.toString(),
         currency: currency,
-        name: "Bhaskar Ind.",
+        name: "CandelA",
         description: "Test Transaction",
         //  image: { logo },
         order_id: order_id,
