@@ -114,6 +114,7 @@ function UpDelProduct() {
             <form onSubmit={(e) => updateProduct(e)}>
               <div className="form-group">
                 <div className="pt-3">
+                  <p>Select category</p>
                   <select
                     placeholder="Select a category"
                     name="category"
@@ -133,6 +134,7 @@ function UpDelProduct() {
                 </div>
                 <div className="row">
                   <div className="col-md-6 mt-3">
+                    <label>Product Name: </label>
                     <input
                       type="text"
                       className="form-control"
@@ -144,6 +146,7 @@ function UpDelProduct() {
                     />
                   </div>
                   <div className="col-md-6 mt-3">
+                  <label>Product Price: </label>
                     <input
                       type="number"
                       className="form-control"
@@ -154,6 +157,7 @@ function UpDelProduct() {
                     />
                   </div>
                   <div className="col-md-6 mt-3">
+                  <label>Product Quantity: </label>
                     <input
                       type="number"
                       className="form-control"
@@ -165,6 +169,7 @@ function UpDelProduct() {
                     />
                   </div>
                   <div className="col-md-6 mt-3">
+                  <label>Product Image: </label>
                     <input
                       type="text"
                       className="form-control"
@@ -176,6 +181,7 @@ function UpDelProduct() {
                     />
                   </div>
                   <div className="col-12 mt-3">
+                  <label>Product Description: </label>
                     <textarea
                       type="text"
                       required

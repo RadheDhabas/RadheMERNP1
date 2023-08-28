@@ -36,25 +36,30 @@ function Products() {
             <div className="row">
               {
                 products && products.map(product=> 
-              <div className="col-lg-3 col-md-4 col-6 mb-3" key={product._id}>
-                <div className="product_card card">
-                  <Link
-                    to={`/admin/product/manage/${product.slug}`}
-                    className="product-link"
-                    
-                  >
-                    <div>
+                  <div
+                  className="col-lg-3 col-md-4 col-6"
+                  key={product._id} >
+
+                  <div className="product_card">
+                    <Link className="product_image" to={`/admin/product/manage/${product.slug}`}>
                       <img
                         src={product.photo}
                         className="img-fluid"
                         alt={product.name}
                       />
-                    </div>
-                    <p>{product.name}</p>
-                    <p> {product.price} </p>
-                  </Link>
+                    </Link>
+
+                    <Link className="p_details" to={`/admin/product/manage/${product.slug}`}>
+                      <p className="brand">{product.product_brand}</p>
+                      <p className="p-name">{product.name}</p>
+                      <p className="p-price">Rs. {product.price} </p>
+                      <button className="header_login_btn">
+                        Manage
+                      </button>
+                    </Link>
+ 
+                  </div>
                 </div>
-              </div>
                )}
             </div>
           </div>
