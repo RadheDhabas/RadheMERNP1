@@ -12,12 +12,12 @@ function Home() {
   const [categories, setCategories] = useState([]);
   const [filterCat, setFilterCat] = useState([]);
   const [filterPrice, setFilterPrice] = useState([]);
-  const [auth, setAuth ] = useContext(AuthContext);
-  const { wishlist, setWishlist, updateWishlist} = useContext(CartContext);
+  const [auth, setAuth] = useContext(AuthContext);
+  const { wishlist, setWishlist, updateWishlist } = useContext(CartContext);
   const navigate = useNavigate();
   useEffect(() => {
     getProducts();
-    getAllCategory(); 
+    getAllCategory();
   }, []);
   // get all products
   const getProducts = async () => {
@@ -103,33 +103,51 @@ function Home() {
         <div className="container my-4">
           <div className="row">
             <div className="col-md-3">
-              <div className="d-flex justify-content-between">
-                <h3>Filter</h3>
-                {(filterCat.length || filterPrice.length) ? <button className="btn btn-danger" onClick={clearFilter}>Clear</button> : ""}
-              </div>
-              <div className="filter_container">
-                <p className="my-2">Category</p>
-                {categories?.map((i) => (
-                  <div key={i._id}>
-                    <input
-                      type="checkbox"
-                      onChange={(e) => handleFilter(e.target.checked, i._id)}
-                    />
-                    <label>{i.name}</label>
+              <div className="filter_section">
+                <div className="filter_header">
+                  <p>Filter</p>
+                  {(filterCat.length || filterPrice.length) ? <button className="clear_filter_btn" onClick={clearFilter}>Clear</button> : ""}
+                </div>
+                <div className="filter_container">
+                  <div className="filter_type">
+                    <a href="#ftype1" className="filter_name collapsed" data-bs-toggle='collapse' aria-expanded='false' aria-controls='ftype1'>Category
+                      <svg width="11" height="6" viewBox="0 0 11 6" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M5.26287 6C5.07423 6 4.88561 5.92797 4.74178 5.78422L0.215928 1.25832C-0.0719759 0.970413 -0.0719759 0.503627 0.215928 0.21584C0.503715 -0.0719468 0.970408 -0.0719468 1.25833 0.21584L5.26287 4.22061L9.26743 0.21598C9.55533 -0.0718069 10.022 -0.0718069 10.3097 0.21598C10.5978 0.503767 10.5978 0.970553 10.3097 1.25846L5.78396 5.78436C5.64006 5.92814 5.45144 6 5.26287 6Z" fill="#333"></path>
+                      </svg>
+                    </a>
+                    <div className="filter_type_option collapse" id="ftype1">
+                      {categories?.map((i) => (
+                        <div key={i._id} className="check_options">
+                          <input
+                            type="checkbox"
+                            onChange={(e) => handleFilter(e.target.checked, i._id)}
+                          />
+                          <label>{i.name}</label>
+                        </div>
+                      ))}
+                    </div>
                   </div>
-                ))}
-                <p className="pt-4">Price</p>
-                {Prices?.map((price) => (
-                  <div key={price._id}>
-                    <input
-                      type="checkbox"
-                      onChange={(e) =>
-                        handlePriceFilter(e.target.checked, price.array)
-                      }
-                    />
-                    <label>{price.name}</label>
-                  </div>
-                ))}
+                  <div className="filter_type">
+                    <a href="#ftype2" className="filter_name collapsed" data-bs-toggle='collapse' aria-expanded='false' aria-controls='ftype1'>Price
+                      <svg width="11" height="6" viewBox="0 0 11 6" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M5.26287 6C5.07423 6 4.88561 5.92797 4.74178 5.78422L0.215928 1.25832C-0.0719759 0.970413 -0.0719759 0.503627 0.215928 0.21584C0.503715 -0.0719468 0.970408 -0.0719468 1.25833 0.21584L5.26287 4.22061L9.26743 0.21598C9.55533 -0.0718069 10.022 -0.0718069 10.3097 0.21598C10.5978 0.503767 10.5978 0.970553 10.3097 1.25846L5.78396 5.78436C5.64006 5.92814 5.45144 6 5.26287 6Z" fill="#333"></path>
+                      </svg>
+                    </a>
+                    <div className="filter_type_option collapse" id="ftype2">
+                    {Prices?.map((price) => (
+                    <div key={price._id} className="check_options">
+                      <input
+                        type="checkbox"
+                        onChange={(e) =>
+                          handlePriceFilter(e.target.checked, price.array)
+                        }
+                      />
+                      <label>{price.name}</label>
+                    </div>
+                  ))}
+                    </div>
+                  </div> 
+                </div>
               </div>
             </div>
             <div className="col-md-9">
