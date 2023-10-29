@@ -1,14 +1,16 @@
 import React, { useContext, useState } from 'react'
 import Offcanvas from 'react-bootstrap/Offcanvas';
 import { Link, useLocation } from 'react-router-dom';
-import { AuthContext } from '../../Context/authContext';
+import { useDispatch, useSelector } from 'react-redux';
+import { logoutUser } from '../../Redux/Reducers/authSlice';
 
-function HeaderMobile({ handelLogout }) {
+function HeaderMobile() {
   const [show, setShow] = useState(false);
   let location = useLocation();
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
-  const [auth, setAuth] = useContext(AuthContext);
+  const auth = useSelector(state=>state.auth)
+  const dispatch =useDispatch()
 
   return (
     <>
@@ -70,7 +72,7 @@ function HeaderMobile({ handelLogout }) {
                 <Link
 
                   to="/"
-                  onClick={handelLogout}
+                  onClick={()=>dispatch(logoutUser())}
                   role="button"
                 >
                   <svg xmlns="http://www.w3.org/2000/svg" height="1em" viewBox="0 0 512 512">

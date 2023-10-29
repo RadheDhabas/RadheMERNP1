@@ -1,18 +1,19 @@
 import React, { useContext, useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import Layout from "./Layout/Layout";
-import { AuthContext } from "../Context/authContext";
 import axios from "axios";
 import { Prices } from "./PriceFilter";
 import Home_banner from "../elements/Home_banner";
 import { CartContext } from "../Context/cartContext";
+import { useDispatch, useSelector } from "react-redux";
 
 function Home() {
   const [products, setProducts] = useState([]);
   const [categories, setCategories] = useState([]);
   const [filterCat, setFilterCat] = useState([]);
   const [filterPrice, setFilterPrice] = useState([]);
-  const [auth, setAuth] = useContext(AuthContext);
+  const auth = useSelector(state=>state.auth);
+  const dispatch = useDispatch();
   const { wishlist, setWishlist, updateWishlist } = useContext(CartContext);
   const navigate = useNavigate();
   useEffect(() => {
@@ -95,7 +96,6 @@ function Home() {
     const check_boxes = document.querySelectorAll(".filter_container input[type=checkbox]");
     check_boxes.forEach(i => i.checked = false)
   }
-
   return (
     <Layout>
       {/* <Home_banner></Home_banner> */}

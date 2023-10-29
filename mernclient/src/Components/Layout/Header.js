@@ -6,27 +6,21 @@ import SearchProduct from "../SearchBox";
 import '../../CSS/Header.scss'
 import { CartContext } from "../../Context/cartContext";
 import HeaderMobile from "./HeaderMobile";
+import { useDispatch, useSelector } from "react-redux";
+import { logoutUser } from "../../Redux/Reducers/authSlice";
 
 const Header = () => {
   let location = useLocation();
   const [showSearchModel, setShowSearchModel] = useState(false);
   const [fullscreen, setFullscreen] = useState(true);
-  const [auth, setAuth] = useContext(AuthContext);
-  const { cart, wishlist, setWishlist } = useContext(CartContext);
-  const handelLogout = () => {
-    setAuth({
-      ...auth,
-      user: null,
-      token: "",
-    });
-    setWishlist([]);
-    localStorage.removeItem("token");
-  };
-
+  const auth = useSelector(state=>state.auth)
+  const cart = useSelector(state=>state.cart)
+  const dispatch = useDispatch();
+  const { wishlist, setWishlist } = useContext(CartContext);
   return (<>
     <nav className="main_header container-fluid">
       <div className="header_logo_category">
-        <HeaderMobile handelLogout={handelLogout}></HeaderMobile>
+        <HeaderMobile></HeaderMobile>
         <Link className="header_brand" to="/">
           CandelA
         </Link>
@@ -65,7 +59,7 @@ const Header = () => {
         <div className="for_pc_n_tab_only">
           <SearchProduct></SearchProduct>
         </div>
-        {!auth.user ? (
+        {!(auth?.user) ? (
           <div>
             <Link className="header_login_btn for_pc_only" to="/login" role="button">
               Login
@@ -98,7 +92,7 @@ const Header = () => {
               </li>
               <li>
                 <Link to="/"
-            onClick={handelLogout}
+            onClick={()=>dispatch(logoutUser())}
             role="button">
                   <svg width="14" height="14" viewBox="0 0 14 14"  xmlns="http://www.w3.org/2000/svg">
                     <path d="M9.9349 13.3438C9.9349 13.5178 9.86576 13.6847 9.74269 13.8078C9.61961 13.9309 9.45269 14 9.27865 14H3.09204C2.51208 13.9993 1.95606 13.7687 1.54596 13.3586C1.13587 12.9485 0.905192 12.3925 0.904541 11.8125V2.1875C0.905192 1.60754 1.13587 1.05152 1.54596 0.641423C1.95606 0.231329 2.51208 0.000651358 3.09204 0L9.27865 0C9.45269 0 9.61961 0.0691404 9.74269 0.192211C9.86576 0.315282 9.9349 0.482202 9.9349 0.65625C9.9349 0.830298 9.86576 0.997218 9.74269 1.12029C9.61961 1.24336 9.45269 1.3125 9.27865 1.3125H3.09204C2.86005 1.31275 2.63764 1.40502 2.4736 1.56906C2.30956 1.7331 2.21729 1.95551 2.21704 2.1875V11.8125C2.21729 12.0445 2.30955 12.2669 2.47359 12.4309C2.63764 12.595 2.86005 12.6873 3.09204 12.6875H9.27865C9.45269 12.6875 9.61961 12.7566 9.74269 12.8797C9.86576 13.0028 9.9349 13.1697 9.9349 13.3438ZM12.9031 6.53598L9.78456 3.41737C9.72387 3.35531 9.65148 3.30591 9.57157 3.27203C9.49165 3.23815 9.40582 3.22045 9.31902 3.21997C9.23222 3.21949 9.14619 3.23623 9.06591 3.26923C8.98563 3.30223 8.91269 3.35082 8.85132 3.4122C8.78995 3.47358 8.74136 3.54652 8.70837 3.62681C8.67539 3.70709 8.65865 3.79313 8.65915 3.87992C8.65964 3.96672 8.67734 4.05256 8.71123 4.13246C8.74513 4.21237 8.79453 4.28476 8.8566 4.34544L10.8548 6.34375H5.68858C5.51453 6.34375 5.34761 6.41289 5.22454 6.53596C5.10147 6.65903 5.03233 6.82595 5.03233 7C5.03233 7.17405 5.10147 7.34097 5.22454 7.46404C5.34761 7.58711 5.51453 7.65625 5.68858 7.65625H10.8548L8.85649 9.65453C8.79528 9.71541 8.74668 9.78777 8.71348 9.86746C8.68028 9.94715 8.66313 10.0326 8.66301 10.1189C8.66289 10.2053 8.67981 10.2908 8.71279 10.3706C8.74578 10.4503 8.79418 10.5228 8.85522 10.5839C8.91627 10.6449 8.98876 10.6933 9.06854 10.7263C9.14832 10.7593 9.23382 10.7762 9.32015 10.7761C9.40648 10.776 9.49194 10.7588 9.57163 10.7256C9.65132 10.6924 9.72368 10.6438 9.78456 10.5826L12.9031 7.46405C13.0262 7.34098 13.0954 7.17406 13.0954 7.00001C13.0954 6.82597 13.0262 6.65905 12.9031 6.53598Z"></path>
@@ -135,7 +129,7 @@ const Header = () => {
         <Link
           className="header_cart_btn"
           to="/cart"
-        > {(cart.length > 0) && <span className="num_of_item">{cart.reduce((a, b) => b.quantity + a, 0)}</span>}
+        > {(cart?.length > 0) && <span className="num_of_item">{cart.reduce((a, b) => b.quantity + a, 0)}</span>}
           <svg xmlns="http://www.w3.org/2000/svg" height="1em" viewBox="0 0 448 512">
             <path d="M160 112c0-35.3 28.7-64 64-64s64 28.7 64 64v48H160V112zm-48 48H48c-26.5 0-48 21.5-48 48V416c0 53 43 96 96 96H352c53 0 96-43 96-96V208c0-26.5-21.5-48-48-48H336V112C336 50.1 285.9 0 224 0S112 50.1 112 112v48zm24 48a24 24 0 1 1 0 48 24 24 0 1 1 0-48zm152 24a24 24 0 1 1 48 0 24 24 0 1 1 -48 0z" />
           </svg>
@@ -143,9 +137,7 @@ const Header = () => {
       </div>
     </nav>
     <Modal show={showSearchModel} fullscreen={fullscreen} onHide={() => setShowSearchModel(false)}>
-
       <Modal.Body className="text-center mob_search_modal">
-
         <button className="mob_search_close_btn" onClick={() => setShowSearchModel(false)}>
           <svg xmlns="http://www.w3.org/2000/svg" height="18px" viewBox="0 0 448 512">
             <path d="M9.4 233.4c-12.5 12.5-12.5 32.8 0 45.3l160 160c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L109.2 288 416 288c17.7 0 32-14.3 32-32s-14.3-32-32-32l-306.7 0L214.6 118.6c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0l-160 160z" />

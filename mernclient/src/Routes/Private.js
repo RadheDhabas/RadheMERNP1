@@ -1,12 +1,12 @@
 import React, { useContext, useEffect, useState } from 'react';
-import { AuthContext } from '../Context/authContext';
 import axios from "axios";
 import { Outlet } from 'react-router-dom';
 import Spinner from '../Components/Spinner';
+import { useSelector } from 'react-redux';
 
 export default function PrivateRoute() {
   const [ok, setOk] = useState(false);
-  const [auth] = useContext(AuthContext);
+  const auth = useSelector(state=>state.auth)
  
   useEffect(() => {
     const authCheck = async () => {

@@ -1,10 +1,10 @@
 import React, { useContext } from 'react'
 import Layout from '../Layout/Layout'
-import { AuthContext } from '../../Context/authContext'
 import AdminMenu from '../Layout/AdminMenu';
+import { useSelector } from 'react-redux';
 
 function AdminDashboard() {
-    const [auth] = useContext(AuthContext);
+  const auth = useSelector(state=>state.auth);
   return (
     <Layout>
        <div className="container-fluid m-3 p-3 dashboard">

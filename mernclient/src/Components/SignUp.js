@@ -3,9 +3,10 @@ import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import Layout from "./Layout/Layout";
 import { useNavigate, Link,useLocation } from "react-router-dom";
-import { AuthContext } from "../Context/authContext";
 import { GoogleLogin, useGoogleLogin } from '@react-oauth/google';
 import axios from 'axios'; 
+import { useDispatch, useSelector } from "react-redux";
+import { loginUser } from "../Redux/Reducers/authSlice";
 
 const Signup = () => {
   const url = `${process.env.REACT_APP_USER_AUTH}/api/auth/createuser`;
@@ -18,7 +19,8 @@ const Signup = () => {
   const [response, setResponse] = useState("");
   const navigate = useNavigate();
   let location = useLocation();
-  const [auth,setAuth] = useContext(AuthContext);
+  const auth = useSelector(state=>state.auth);
+  const dispatch = useDispatch();
   useEffect(() => {
     if (auth?.user) {
       navigate("/");
@@ -63,11 +65,7 @@ const Signup = () => {
             // const json = await response.json()
             if (json && json?.data.success) {
                 // Save the auth token and redirect
-                setAuth({
-                    ...auth,
-                    token: json?.data.authToken,
-                    user: json?.data.user
-                })
+                dispatch(loginUser(json))
                 localStorage.setItem('token', JSON.stringify(json.data));
                 navigate(location.state || "/")
             }

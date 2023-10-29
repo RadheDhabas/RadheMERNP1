@@ -3,16 +3,17 @@ import Layout from "./Layout/Layout";
 import { CartContext } from '../Context/cartContext';
 import '../CSS/Wishlist.scss'
 import { Link, useNavigate } from 'react-router-dom';
-import { AuthContext } from '../Context/authContext';
+import { useDispatch, useSelector } from 'react-redux';
 
 function MyWishlist() {
-  const [auth] = useContext(AuthContext);
+  const auth = useSelector(state=>state.auth);
+  const dispatch = useDispatch();
   const { wishlist, updateWishlist } = useContext(CartContext);
   const [showWl, setShowWl] = useState([]);
   const navigate = useNavigate();
-  // useEffect(() => {
-  //   wishlistProductShow();
-  // }, [])
+  useEffect(() => {
+    wishlistProductShow();
+  }, [])
   const wishlistProductShow = async () => {
     try {
       const response = await fetch(`${process.env.REACT_APP_USER_AUTH}/api/my-wishlist`, {

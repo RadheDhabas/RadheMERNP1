@@ -1,75 +1,15 @@
 import { createContext, useContext, useEffect, useState } from "react";
 import axios from 'axios';
-import { AuthContext } from "./authContext";
 import { useNavigate } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
+import { ResetCart } from "../Redux/Reducers/cartSlice";
 const CartContext = createContext();
 const CartProvider = ({ children }) => {
-  const [cart, setCart] = useState([]);
-  const [auth] = useContext(AuthContext);
+  const cart = useSelector(state=>state.cart);
+  const auth = useSelector(state=>state.auth);
   const [wishlist, setWishlist] = useState([]);
   const [localWl, setLocalWlt] = useState([]);
-  useEffect(() => {
-    let cart_exist = JSON.parse(localStorage.getItem('cart'));
-    if (cart_exist) {
-      setCart(cart_exist);
-    }
-  }, [])
-
-  //  item add to cart
-  const addToCart = (item) => {
-    const itemInCart = cart.find(i => i._id == item._id);
-    if (!itemInCart) {
-      setCart([...cart, { ...item, quantity: 1 }]);
-   
-    }
-    // else {
-    //   setCart(
-    //     cart.map(i => (i._id == item._id) ? { ...i, quantity: i.quantity + 1 } : { ...i })
-    //   )
-    // }
-    localStorage.setItem('cart', JSON.stringify(cart));
-  }
-
-  // increment in cart item quantity
-  const IncreaseQnty = (item) => {
-    setCart(cart.map(i => (i._id === item._id) ? { ...i, quantity: i.quantity + 1 } : { ...i }));
-
-  }
-  // decrement in cart item quantity
-  const DecreaseQnty = (item) => {
-    let upd_cart = cart.map(i => (i._id === item._id && i.quantity > 1) ? { ...i, quantity: i.quantity - 1 } : { ...i });
-    setCart(upd_cart);
-  }
-
-  // remove item from cart
-  const RemoveItem = (item) => {
-    let upd_cart = cart.filter(i => i._id !== item._id);
-    setCart(upd_cart);
-
-  }
-  // reset cart
-  const ResetCart = () => {
-    setCart([]);
-    localStorage.removeItem("cart");
-  }
-  const cart_quantity = () => {
-    return cart.reduce((a, b) => b.quantity + a, 0);
-  }
-  // total cart value
-  const cart_value = () => {
-    let total_value = cart.reduce((a, b) => b.price * b.quantity + a, 0);
-    return total_value.toLocaleString("en-US", {
-      style: "currency",
-      currency: "INR",
-    })
-  }
-
-  useEffect(() => {
-    if (cart.length > 0) {
-      localStorage.setItem('cart', JSON.stringify(cart))
-    }
-  }, [cart_quantity])
-
+const dispatch = useDispatch();
   // for payment handling
   const handleCheckout = async () => {
     try {
@@ -113,8 +53,9 @@ const CartProvider = ({ children }) => {
             },
           );
           if (result.data) {
-            localStorage.removeItem('cart');
-            setCart([]);
+            // localStorage.removeItem('cart');
+            // setCart([]);
+            dispatch(ResetCart());
             window.location.href = "/dashboard/orders"
           }
           // here we can show messages like order placed or something else
@@ -182,7 +123,7 @@ const CartProvider = ({ children }) => {
   }, [auth?.user])
   // wishlist action end
   return (
-    <CartContext.Provider value={{ cart, setCart, wishlist, setWishlist, addToCart, IncreaseQnty, DecreaseQnty, ResetCart, RemoveItem, cart_quantity, cart_value, handleCheckout, updateWishlist, getWishlist }}>
+    <CartContext.Provider value={{wishlist, setWishlist,  handleCheckout, updateWishlist, getWishlist }}>
       {children}
     </CartContext.Provider>
   )

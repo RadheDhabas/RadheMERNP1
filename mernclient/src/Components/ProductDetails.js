@@ -1,15 +1,18 @@
-import React, { useContext, useEffect, useState } from "react";
+import React, {useEffect, useState } from "react";
 import Layout from "./Layout/Layout";
 import { useParams } from "react-router-dom";
 import { Link } from "react-router-dom";
 import axios from "axios";
-import { CartContext } from "../Context/cartContext";
+import {addToCart} from '../Redux/Reducers/cartSlice'
+import { useDispatch, useSelector } from "react-redux";
 
 function ProductDetails() {
   const [product, setProduct] = useState({});
   const [similarProduct, setSimilarProduct] = useState([]);
-const {cart,setCart,addToCart} = useContext(CartContext);
-
+// const {cart,setCart,addToCart} = useContext(CartContext);
+const cart = useSelector(state=>state.cart)
+const auth = useSelector(state=>state.auth)
+const dispatch = useDispatch();
   const prams = useParams();
   useEffect(() => {
     getSingleProduct();
@@ -43,7 +46,7 @@ const {cart,setCart,addToCart} = useContext(CartContext);
             <p>Description: {product.description}</p>
             <p>Price: ₹{product.price}</p>
             <div className="buttons">
-              <button onClick={()=>addToCart(product)}>Add to cart</button>
+              <button onClick={()=>dispatch(addToCart(product))}>Add to cart</button>
               <button>Add to Wishlist</button>
             </div>
           </div>

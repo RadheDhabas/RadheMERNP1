@@ -2,12 +2,12 @@ import React, { useState, useEffect, useContext } from "react";
 import Layout from "../Layout/Layout";
 import AdminMenu from "../Layout/AdminMenu";
 import axios from "axios";
-import { AuthContext } from "../../Context/authContext";
 import EditCategory from "./EditCategory";
+import { useSelector } from "react-redux";
 
 function CreateCategories() {
   const url = `${process.env.REACT_APP_USER_AUTH}/api/category/get-categories`;
-  const [auth] = useContext(AuthContext);
+  const auth = useSelector(state=>state.auth);
   const [category, setCategory] = useState([]);
   const [catname, setCatname] = useState("");
   const [editcat,seteditcat] = useState("");

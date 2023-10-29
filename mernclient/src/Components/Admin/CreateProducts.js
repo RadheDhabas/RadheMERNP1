@@ -4,14 +4,14 @@ import AdminMenu from "../Layout/AdminMenu";
 import axios from "axios";
 import { Select } from "antd";
 import { useNavigate } from "react-router-dom";
-import { AuthContext } from "../../Context/authContext";
+import { useSelector } from "react-redux";
 const { Option } = Select;
 
 function CreateProducts() {
   const navigate = useNavigate();
   const [categories, setCategories] = useState([]);
   const [category, setCategory] = useState("");
-  const [auth] = useContext(AuthContext);
+  const auth = useSelector(state=>state.auth);
   useEffect(() => {
     getCategories();
   }, []);

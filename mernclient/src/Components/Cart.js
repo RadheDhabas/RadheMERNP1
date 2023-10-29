@@ -3,13 +3,21 @@ import Layout from './Layout/Layout'
 import '../CSS/cartpage.css'
 import { CartContext } from '../Context/cartContext'
 import { useNavigate, Link } from 'react-router-dom';
+import { IncreaseQnty, DecreaseQnty, ResetCart, RemoveItem, CartQuantity } from '../Redux/Reducers/cartSlice'
+// import {handleCheckout} from '../Helperfuns/RazorpayCheckout'
+import { useDispatch, useSelector } from 'react-redux';
 function Cart() {
-  const { cart, setCart, IncreaseQnty, DecreaseQnty, ResetCart, RemoveItem, cart_value, cart_quantity, handleCheckout } = useContext(CartContext);
+  const { handleCheckout } = useContext(CartContext);
   const navigate = useNavigate();
+  const cart = useSelector(state => state.cart);
+  const auth = useSelector(state=>state.auth);
+  const dispatch = useDispatch();
+  let cartQuantity = cart.reduce((a, b) => a + b.quantity, 0);
+  let cartValue = cart.reduce((a, b) => a + b.quantity * b.price, 0)
 
   return (
     <Layout>
-      {cart_quantity() > 0 ?
+      {cartQuantity > 0 ?
         <div className="container">
           <div className="row">
             <div className="col-lg-8">
@@ -26,12 +34,12 @@ function Cart() {
                     </p>
                     <div className="row">
                       <div className="col-5">
-                        <button onClick={(() => RemoveItem(i))}>Remove</button>
+                        <button onClick={(() => dispatch(RemoveItem(i)))}>Remove</button>
                       </div>
                       <div className="col-7">
-                        <button onClick={() => DecreaseQnty(i)}>-</button>
+                        <button onClick={() => dispatch(DecreaseQnty(i))}>-</button>
                         {i.quantity}
-                        <button onClick={() => IncreaseQnty(i)}>+</button>
+                        <button onClick={() => dispatch(IncreaseQnty(i))}>+</button>
                       </div>
                     </div>
                   </div>
@@ -49,21 +57,24 @@ function Cart() {
                 <div className="total">
                   <div>
                     <div className="Subtotal">Sub-Total</div>
-                    <div className="items">{cart_quantity()} {cart_quantity > 1 ? "Items" : "item"}</div>
+                    <div className="items">{cartQuantity} {(cartQuantity > 1) ? "Items" : "item"}</div>
                   </div>
-                  <div className="total-amount">{cart_value()}</div>
+                  <div className="total-amount">{cartValue}</div>
                 </div>
-                <button className="button" onClick={() => handleCheckout()}>Checkout</button></div>
+                <button className="button" onClick={() => handleCheckout()}>Checkout</button>
+                <button className="button" onClick={() => dispatch(ResetCart())}>reset cart</button>
+              </div>
             </div>
-          </div>
+          </div> 
         </div >
         :
         <div className='container'>
-          <div className='text-center'>
-            <p>
-              There is nothing in your bag. Let's add some items.
-            </p>
-            <button onClick={() => navigate('/')}>
+          <div className="empty_cart">
+            <div className='empty_cart_img'>
+              <img src="https://images.bewakoof.com/images/doodles/empty-cart-page-doodle.png" title="Empty Cart Page Doodle" alt="Empty Cart Page Doodle" width="150px" />
+            </div>
+            <div className="empty_cart_text">Nothing in the bag!</div>
+            <button className='start_shoping_btn' onClick={() => navigate('/')}>
               Start Shoping
             </button>
           </div>

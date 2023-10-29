@@ -24,6 +24,7 @@ import { CartProvider } from "./Context/cartContext.js";
 import Cart from "./Components/Cart.js";
 import EmptyPage from "./Components/EmptyPage.js"; 
 import MyWishlist from "./Components/MyWishlist.js";
+// for redux
 
 function App() {
   return (

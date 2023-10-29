@@ -2,24 +2,30 @@ import React, { useState, useContext, useEffect } from 'react'
 import { useNavigate, useLocation, Link } from 'react-router-dom'
 import Layout from './Layout/Layout';
 import { GoogleLogin, useGoogleLogin } from '@react-oauth/google';
-import { AuthContext } from '../Context/authContext';
+import { ToastContainer, toast } from 'react-toastify';
 import '../CSS/LoginSignup.scss';
-import axios from 'axios'; 
+import { loginUser } from '../Redux/Reducers/authSlice';
+import axios from 'axios';
+import { useDispatch, useSelector } from 'react-redux';
 
 const url = process.env.REACT_APP_USER_AUTH;
 const Login = (props) => {
-    const [credentials, setCredentials] = useState({ email: "", password: "" })
+    const [credentials, setCredentials] = useState({ email: "", password: "" });
+    const [loading, setLoading] = useState(false);
+    const [error, setError] = useState(null);
     let history = useNavigate();
     let location = useLocation();
-    let [auth, setAuth] = useContext(AuthContext); 
+    const auth = useSelector(state => state.auth)
+    const dispatch = useDispatch()
     useEffect(() => {
         if (auth?.user) {
-            history("/"); 
+            history("/");
         }
-        
+
     }, [auth, history]);
     const handleSubmit = async (e) => {
         e.preventDefault();
+        setLoading(true);
         const response = await fetch(`${url}/api/auth/login`, {
             method: 'POST',
             headers: {
@@ -30,16 +36,17 @@ const Login = (props) => {
         const json = await response.json()
         if (json && json.success) {
             // Save the auth token and redirect
-            setAuth({
-                ...auth,
-                token: json.authToken,
-                user: json.user
-            })
-            localStorage.setItem('token', JSON.stringify(json));
+            dispatch(loginUser(json))
             history(location.state || "/")
+            setLoading(false)
         }
         else {
-            console.log(json)
+            setLoading(false)
+            setError(json);
+            toast.error(json.error, {
+                position: "bottom-center",
+                autoClose: 3000,
+            });
         }
     }
 
@@ -49,28 +56,25 @@ const Login = (props) => {
     // auth using google
     const googleLogin = useGoogleLogin({
         onSuccess: async (res) => {
-            try { 
-                let json = await axios.post(`${url}/api/auth/google-login`, { tokenId: res.access_token});
-                // const json = await response.json()
+            try {
+                let json = await axios.post(`${url}/api/auth/google-login`, { tokenId: res.access_token });
                 if (json && json?.data.success) {
                     // Save the auth token and redirect
-                    setAuth({
-                        ...auth,
-                        token: json?.data.authToken,
-                        user: json?.data.user
-                    })
-                    localStorage.setItem('token', JSON.stringify(json.data));
+                    dispatch(loginUser(json.data))
                     history(location.state || "/")
                 }
                 else {
-                    console.log(json)
+                    toast.error(json.error, {
+                        position: "bottom-center",
+                        autoClose: 3000,
+                    });
                 }
             } catch (error) {
                 console.error("Login Error", error);
             }
         },
-        
-    }); 
+
+    });
     return (
         <Layout>
             <div className='login_screen_form'>
@@ -83,7 +87,7 @@ const Login = (props) => {
                                 console.log('Login Failed');
                             }}
                         /> */}
-                        <button onClick={()=>googleLogin()} className="sinin_with_google_btn">
+                        <button onClick={() => googleLogin()} className="sinin_with_google_btn">
                             <svg xmlns="http://www.w3.org/2000/svg" width={18} height={18} viewBox="0 0 18 18" fill="none" role="img" className="icon ">
                                 <path fillRule="evenodd" clipRule="evenodd" d="M17.64 9.20419C17.64 8.56601 17.5827 7.95237 17.4764 7.36328H9V10.8446H13.8436C13.635 11.9696 13.0009 12.9228 12.0477 13.561V15.8192H14.9564C16.6582 14.2524 17.64 11.9451 17.64 9.20419Z" fill="#4285F4" />
                                 <path fillRule="evenodd" clipRule="evenodd" d="M8.99976 18C11.4298 18 13.467 17.1941 14.9561 15.8195L12.0475 13.5613C11.2416 14.1013 10.2107 14.4204 8.99976 14.4204C6.65567 14.4204 4.67158 12.8372 3.96385 10.71H0.957031V13.0418C2.43794 15.9831 5.48158 18 8.99976 18Z" fill="#34A853" />
@@ -111,7 +115,7 @@ const Login = (props) => {
                                 </label>
                                 <input type="password" className="" value={credentials.password} onChange={onChange} name="password" id="password" />
                             </div>
-                            <button type="submit" className="sign_btn">Sign In</button>
+                            <button type="submit" className="sign_btn">{loading ? 'Signing In...' : 'Sign In'}</button>
                         </form>
                     </div>
                     <div className='sign_up_text'>
@@ -119,6 +123,7 @@ const Login = (props) => {
                     </div>
                 </div>
             </div>
+            <ToastContainer />
         </Layout>)
 
 }

@@ -1,13 +1,13 @@
 import React, { useContext, useEffect, useState } from "react";
 import axios from "axios";
-import { AuthContext } from "../../Context/authContext";
 import { useNavigate, useParams } from "react-router-dom";
 import Layout from "../Layout/Layout";
 import AdminMenu from "../Layout/AdminMenu";
+import { useSelector } from "react-redux";
 
 function UpDelProduct() {
   const navigate = useNavigate();
-  const [auth] = useContext(AuthContext);
+  const auth = useSelector(state=>state.auth);
   const [category, setCategory] = useState("");
   const [categories, setCategories] = useState([]);
   const [pid, setPid] = useState("");
