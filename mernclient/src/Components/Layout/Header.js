@@ -48,9 +48,9 @@ const Header = () => {
             <Link
               className={`nav_link ${location.pathname === "/about" ? "active" : ""
                 }`}
-              to="/about"
+              to="/all-products"
             >
-              ELECTRONICS
+              All Products
             </Link>
           </li>
         </ul>

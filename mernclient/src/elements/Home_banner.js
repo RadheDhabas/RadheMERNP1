@@ -1,5 +1,5 @@
 import React from 'react'
-import '../CSS/HomePage.scss'
+import '../CSS/AllProductPage.scss'
 
 function Home_banner() {
   return (

@@ -24,6 +24,7 @@ import { CartProvider } from "./Context/cartContext.js";
 import Cart from "./Components/Cart.js";
 import EmptyPage from "./Components/EmptyPage.js"; 
 import MyWishlist from "./Components/MyWishlist.js";
+import AllProducts from "./Components/AllProducts.js";
 // for redux
 
 function App() {
@@ -35,6 +36,7 @@ function App() {
               <Router>
                 <Routes>
                   <Route path="/" element={<Home />} />
+                  <Route path="/all-products" element={<AllProducts />} />
                   <Route path="/about" element={<About />} />
                   <Route path="/signup" element={<SignUp />} />
                   <Route path="/forgot-password" element={<ForgetPass />} />
