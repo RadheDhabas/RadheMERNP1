@@ -83,7 +83,11 @@ export const loginController = async (req, res) => {
 export const googleLoginController = async (req, res) => {
     try {
         const { tokenId } = req.body;
-        const user_data = await axios.get("https://www.googleapis.com/oauth2/v3/userinfo?access_token=" + tokenId);
+        const user_data = await axios.get("https://www.googleapis.com/oauth2/v3/userinfo?access_token=" + tokenId); 
+        console.log(user_data.data)
+        // if (user_data.aud !== process.env.GOOGLE_CLIENT_ID) {
+        //     return res.status(401).json({ success: false, message: 'Invalid token' });
+        // }
         const email = user_data.data.email;
         let existinguser = await User.findOne({ email }).select("-googleId");
 
@@ -94,7 +98,7 @@ export const googleLoginController = async (req, res) => {
                 }
             }
             const JWT_SECRET = process.env.JWT_SECRET;
-            const authToken = jwt.sign(data, JWT_SECRET);
+            const authToken = jwt.sign(data, JWT_SECRET,{ expiresIn: '24h' });
             return res.status(200).json({ success: true, authToken, user:existinguser });
         }
         else {
@@ -104,18 +108,19 @@ export const googleLoginController = async (req, res) => {
                 googleId: user_data.data.sub,
                 googleEmail: user_data.data.email,
             })
-            existinguser = await User.findOne({ email }).select("-googleId");
+            let new_user = await User.findOne({ email }).select("-googleId");
             const data = {
                 user: {
-                    id: existinguser.id
+                    id: new_user.id
                 }
             }
             const JWT_SECRET = process.env.JWT_SECRET;
-            const authToken = jwt.sign(data, JWT_SECRET);
-            return res.status(200).json({ success: true, authToken, existinguser });
+            const authToken = jwt.sign(data, JWT_SECRET,{ expiresIn: '24h' });
+            return res.status(200).json({ success: true, authToken, user:new_user });
         }
     } catch (error) {
         console.error("Error while signing with google: " + error);
+        return res.status(500).json({ success: false, message: "Internal Server Error" });
     }
 }
 // controller for forgot password

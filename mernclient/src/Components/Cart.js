@@ -4,10 +4,10 @@ import '../CSS/cartpage.css'
 import { CartContext } from '../Context/cartContext'
 import { useNavigate, Link } from 'react-router-dom';
 import { IncreaseQnty, DecreaseQnty, ResetCart, RemoveItem, CartQuantity } from '../Redux/Reducers/cartSlice'
-// import {handleCheckout} from '../Helperfuns/RazorpayCheckout'
+import {handleCheckout} from '../Helperfuns/RazorpayCheckout'
 import { useDispatch, useSelector } from 'react-redux';
 function Cart() {
-  const { handleCheckout } = useContext(CartContext);
+  // const { handleCheckout } = useContext(CartContext);
   const navigate = useNavigate();
   const cart = useSelector(state => state.cart);
   const auth = useSelector(state=>state.auth);
@@ -61,7 +61,7 @@ function Cart() {
                   </div>
                   <div className="total-amount">{cartValue}</div>
                 </div>
-                <button className="button" onClick={() => handleCheckout()}>Checkout</button>
+                <button className="button" onClick={() => handleCheckout(cart,auth)}>Checkout</button>
                 <button className="button" onClick={() => dispatch(ResetCart())}>reset cart</button>
               </div>
             </div>

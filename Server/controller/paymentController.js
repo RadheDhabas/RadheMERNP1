@@ -5,7 +5,6 @@ import Orders from '../models/OrderModel.js';
 export const paymentOrderController = async (req, res) => {
     try {
         const cart = req.body.cart;
-        // console.log(cart)
         const netValue = req.body.cart.reduce((a, b) => a + b.quantity * b.price, 0)
          
         var instance = new Razorpay({

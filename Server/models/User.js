@@ -29,16 +29,6 @@ const UserSchema = new Schema({
     googleEmail: {
         type: String,
     },
-    wishlist: [
-        {
-            type: mongoose.ObjectId,
-            ref: 'Product'
-        }],
-    cart: [
-        {
-            type: mongoose.ObjectId,
-            ref: 'Product'
-        }],
     date: { type: Date, default: Date.now },
 });
 const User = mongoose.model('User', UserSchema);

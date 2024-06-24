@@ -1,11 +1,11 @@
 import React, { useContext } from 'react'
 import Layout from '../Layout/Layout'
 import UserMenu from '../Layout/UserMenu'
-import { AuthContext } from '../../Context/authContext'
 import '../../CSS/UserProfile.css'
+import { useSelector } from 'react-redux'
 
 function UserProfle() {
-  const [auth, setAuth] = useContext(AuthContext);
+  const auth = useSelector(state=>state.auth)
   return (
     <Layout>
       <div className="container dashboard">
@@ -14,9 +14,9 @@ function UserProfle() {
             <UserMenu />
           </div>
           <div className="col-md-9">
-            <div class="page-profile">
-              <div class="profile_infoLabel">Profile Details</div>
-              <table class="profile-infoTable">
+            <div className="page-profile">
+              <div className="profile_infoLabel">Profile Details</div>
+              <table className="profile-infoTable">
                 <tbody>
                   <tr>
                     <td>Full Name</td>
@@ -29,8 +29,7 @@ function UserProfle() {
                   <tr>
                     <td>Email ID</td>
                     <td>{auth?.user?.email}</td>
-                  </tr>
-                   
+                  </tr> 
                 </tbody>
               </table>
             </div>

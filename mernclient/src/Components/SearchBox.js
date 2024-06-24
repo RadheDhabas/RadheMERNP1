@@ -1,31 +1,17 @@
 import React, { useContext, useState } from 'react'
-import { SearchContext } from '../Context/searchContext';
 import { useNavigate } from 'react-router-dom';
 
 function SearchProduct() {
   const navigate = useNavigate();
-  const {searchProduct, setSearchProduct,searchedKeyword,setSearchedKeyword} = useContext(SearchContext);
-  const handelSearch = async (e) => {
-    e.preventDefault();
-    try {
-      if(searchedKeyword.length>0){
-      const response = await fetch(`${process.env.REACT_APP_USER_AUTH}/api/product/search/${searchedKeyword}`);
-      let json = await response.json();
-      setSearchProduct(json);
-      localStorage.setItem("setSearchedKeyword",setSearchedKeyword);
-      navigate('/search');
-    } }catch (error) {
-      console.error(error);
-    }
-  }
+ 
   return (
-    <div className='header_search'>
-      <form role="search" onSubmit={handelSearch}>
+    <div className='header_search'> 
+      <form role="search" onSubmit={()=>{}}>
         <input type="search"
           placeholder="Search"
           aria-label="Search"  
           autoFocus = {(window.innerWidth<768)?true:false}
-          onChange={(e) => { setSearchedKeyword(e.target.value) }}
+         
           
         />
         <button className="header_search_btn" type="submit" >

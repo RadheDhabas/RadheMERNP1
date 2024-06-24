@@ -1,43 +1,54 @@
-import { createSlice } from "@reduxjs/toolkit";
+import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
+import axios from 'axios';
 
-// const initialState = {
-//     cart:[],
-// };
+// Async thunks
+export const fetchWishlist = createAsyncThunk('wishlist/fetchWishlist', async (userId, { rejectWithValue }) => {
+    try {
+        const response = await axios.get(`${process.env.REACT_APP_USER_AUTH}/api/wishlist/${userId}`);
+        return response.data.wishlist;
+    } catch (error) {
+        return rejectWithValue(error.response ? error.response.data.message : 'An error occurred');
+    }
+});
 
-const cartSlice = createSlice({
-    name: "cart",
-    initialState: [],
+export const addToWishlist = createAsyncThunk('wishlist/addToWishlist', async ({ userId, productId }, { rejectWithValue }) => {
+    try {
+        const response = await axios.post(`${process.env.REACT_APP_USER_AUTH}/api/wishlist/${userId}`, { productId });
+        return response.data.wishlist.products;
+    } catch (error) {
+        return rejectWithValue(error.response ? error.response.data.message : 'An error occurred');
+    }
+});
+
+export const removeFromWishlist = createAsyncThunk('wishlist/removeFromWishlist', async ({ userId, productId }, { rejectWithValue }) => {
+    try {
+        const response = await axios.put(`${process.env.REACT_APP_USER_AUTH}/api/wishlist/${userId}`, { productId } );
+        return response.data.wishlist.products;
+    } catch (error) {
+        return rejectWithValue(error.response ? error.response.data.message : 'An error occurred');
+    }
+});
+
+const wishlistSlice = createSlice({
+    name: 'wishlist',
+    initialState:[],
     reducers: {
-        addToCart: (state, action) => {
-            const newItem = action.payload;
-            const existingItem = state.find(item => item._id === newItem._id);
 
-            if (!existingItem) {
-                state.push({ ...newItem, quantity: 1 });
-            }
-            return state
-        },
-        RemoveItem: (state, action) => {
-            const item = action.payload;
-            state = state.filter(i => i._id !== item._id);
-            return state;
-        },
-        ResetCart: (state) => {
-            state = [];
-            return state;
-        },
-        IncreaseQnty: (state, action) => {
-            const item = action.payload;
-            state = state.map(i => (i._id === item._id) ? { ...i, quantity: i.quantity + 1 } : i);
-            return state;
-        },
-        DecreaseQnty: (state, action) => {
-            const item = action.payload;
-            state = state.map(i => (i._id === item._id && i.quantity > 1) ? { ...i, quantity: i.quantity - 1 } : { ...i });
-            return state;
-        },
+    },
+    extraReducers: (builder) => {
+        builder
+            .addCase(fetchWishlist.fulfilled, (state, action) => {
+                state = action.payload;
+            })
+            .addCase(addToWishlist.fulfilled, (state, action) => {
+                state = action.payload;
+                return state
+            })
+            .addCase(removeFromWishlist.fulfilled, (state, action) => {
+                state = action.payload;
+                return state
+            });
     },
 });
 
-export const { addToCart, RemoveItem, ResetCart, IncreaseQnty, DecreaseQnty } = cartSlice.actions;
-export default cartSlice.reducer;
+export default wishlistSlice.reducer;

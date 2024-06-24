@@ -2,10 +2,7 @@ import axios from 'axios';
 import { store } from '../Redux/store';
 import { ResetCart } from '../Redux/Reducers/cartSlice';
 // for payment handling
-const cart = store.getState().cart;
-const auth = store.getState().auth;
-console.log(cart,auth);
-export const handleCheckout = async () => {
+export const handleCheckout = async (cart,auth) => {
     try {
         const response = (await axios.post(`${process.env.REACT_APP_USER_AUTH}/payment/orders`, { cart }));
         if (!response) {
