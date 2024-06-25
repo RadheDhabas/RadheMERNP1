@@ -1,3 +1,4 @@
+import Cart from '../models/CartModel.js';
 import Wishlist from '../models/WishlistModel.js';
 
 // get wishlist 
@@ -9,7 +10,7 @@ export const getWishlistController = async (req, res) => {
             await Wishlist.create({ user: userId, products: [] })
         }
         await wishlist.populate('products');
-        res.status(200).send({ data: wishlist });
+        res.status(200).send(wishlist);
     } catch (error) {
         console.error("Error occured while fatching wishlist " + error);
         res.status(200).send('Wishlist does not exist');
@@ -49,3 +50,17 @@ export const removeFromWishlistController = async (req, res) => {
 }
 
 // Cart Operation
+export const getCartItemsController = async(req,res)=>{
+    try {
+        const userId = req.params.userId;
+        const cart = await Cart.findOne({ user: userId }).populate('products')
+        if (!cart) {
+            await Cart.create({ user: userId, products: [] })
+        }
+        await cart.populate('products');
+        res.status(200).send(cart);
+    } catch (error) {
+        console.error("Error occured while fatching cart " + error);
+        res.status(200).send('cart does not exist');
+    }
+}

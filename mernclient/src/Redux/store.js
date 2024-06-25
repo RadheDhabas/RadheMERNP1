@@ -5,7 +5,6 @@ import { combineReducers } from '@reduxjs/toolkit';
 import authReducer from './Reducers/authSlice';
 import cartReducer from './Reducers/cartSlice';
 import wishlistReducer from './Reducers/wishlistSlice';
-import thunk from 'redux-thunk'; 
 
 const persistConfig = {
   key: 'root',

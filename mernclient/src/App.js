@@ -37,11 +37,15 @@ function App() {
           <Route path="/forgot-password" element={<ForgetPass />} />
           <Route path="/login" element={<Login />} />
           {/* <Route path="/search" element={<Search />} /> */}
-          <Route path="/cart" element={<Cart />} />
           <Route path="/product/:slug" element={<ProductDetails />} />
-          <Route path="/my-wishlist" element={<MyWishlist />} />
+          <Route path="/cart" element={<PrivateRoute />}>
+            <Route path="" element={<Cart />} />
+          </Route>
           <Route path="/my-account" element={<PrivateRoute />}>
             <Route path="" element={<UserProfle />} />
+          </Route>
+          <Route path="/my-wishlist" element={<PrivateRoute />}>
+            <Route path="" element={<MyWishlist />} />
           </Route>
           <Route path="/my-orders" element={<PrivateRoute />}>
             <Route path="" element={<Orders />} />

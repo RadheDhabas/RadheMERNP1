@@ -9,7 +9,6 @@ import { useDispatch, useSelector } from "react-redux";
 function ProductDetails() {
   const [product, setProduct] = useState({});
   const [similarProduct, setSimilarProduct] = useState([]);
-// const {cart,setCart,addToCart} = useContext(CartContext);
 const cart = useSelector(state=>state.cart)
 const auth = useSelector(state=>state.auth)
 const dispatch = useDispatch();

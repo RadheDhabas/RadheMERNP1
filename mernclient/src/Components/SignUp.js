@@ -1,9 +1,9 @@
-import React, { useContext, useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import Layout from "./Layout/Layout";
 import { useNavigate, Link,useLocation } from "react-router-dom";
-import { GoogleLogin, useGoogleLogin } from '@react-oauth/google';
+import { useGoogleLogin } from '@react-oauth/google';
 import axios from 'axios'; 
 import { useDispatch, useSelector } from "react-redux";
 import { loginUser } from "../Redux/Reducers/authSlice";
@@ -16,7 +16,6 @@ const Signup = () => {
     email: "",
     password: "",
   });
-  const [response, setResponse] = useState("");
   const navigate = useNavigate();
   let location = useLocation();
   const auth = useSelector(state=>state.auth);
@@ -44,8 +43,7 @@ const Signup = () => {
       }),
     });
     const json = await response.json();
-    setResponse(json);
-    if (response.status == 200) {
+    if (json.status == 200) {
       toast.success( "Account created successfully", {
         position: "top-center",
         autoClose: 1000,

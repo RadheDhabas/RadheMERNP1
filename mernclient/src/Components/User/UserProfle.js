@@ -1,4 +1,4 @@
-import React, { useContext } from 'react'
+import React from 'react'
 import Layout from '../Layout/Layout'
 import UserMenu from '../Layout/UserMenu'
 import '../../CSS/UserProfile.css'

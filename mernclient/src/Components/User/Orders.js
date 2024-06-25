@@ -1,10 +1,9 @@
-import React, { useContext, useEffect, useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { useSelector } from 'react-redux';
 import Layout from '../Layout/Layout'
 import UserMenu from '../Layout/UserMenu'
 import axios from 'axios';
 import '../../CSS/AdminOrder.css';
-import { AuthContext } from '../../Context/authContext';
 
 function Orders() {
   const [orders, setOrders] = useState([]);

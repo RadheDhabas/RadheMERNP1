@@ -1,7 +1,7 @@
 import React, { useContext, useEffect } from 'react'
 import Layout from './Layout/Layout'
 import '../CSS/cartpage.css'
-import { CartContext } from '../Context/cartContext'
+// import { CartContext } from '../Context/cartContext'
 import { useNavigate, Link } from 'react-router-dom';
 import { IncreaseQnty, DecreaseQnty, ResetCart, RemoveItem, CartQuantity } from '../Redux/Reducers/cartSlice'
 import {handleCheckout} from '../Helperfuns/RazorpayCheckout'
