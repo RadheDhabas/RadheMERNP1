@@ -12,8 +12,7 @@ description:{
     required:true
 },
 product_brand:{
-    type:String,
-    required:true
+    type:String
 },
 price:{
     type:Number,

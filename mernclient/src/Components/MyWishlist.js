@@ -16,7 +16,7 @@ function MyWishlist() {
     check_wl ? dispatch(removeFromWishlist({ userId, productId }))
       : dispatch(addToWishlist({ userId, productId }))
   }
- 
+
   return (
     <Layout>
       <div className="container">
@@ -51,12 +51,15 @@ function MyWishlist() {
             :
             <div className="row">
               <div className="col-12">
-                Nothing in wishlist...
-              </div>
-              <div className="col-12">
-                <button onClick={() => navigate('/')}>
-                  Start Shoping
-                </button>
+                <div className="empty_cart">
+                  <div className='empty_cart_img'>
+                    <img src="https://images.bewakoof.com/web/wishlistEmpty.svg" title="Empty Cart Page Doodle" alt="Empty Cart Page Doodle" width="150px" />
+                  </div>
+                  <div className="empty_cart_text">Hey! Your wishlist is empty.</div>
+                  <button className='start_shoping_btn' onClick={() => navigate('/')}>
+                    Start Shoping
+                  </button>
+                </div>
               </div>
             </div>
           }

@@ -3,11 +3,12 @@ import Product from "../models/ProductModel.js";
 
 // create product
 export const createProductController = async (req, res) => {
-  const { name, slug, description, price, category, quantity, photo } =
+  const { name, description, price, category, quantity, photo } =
     req.fields;
   if (!name && !description && !price && !category && !quantity && !photo) {
     return res.status(501).send({ message: "Provide all the required fields" });
   }
+  console.log(category)
   try {
     const product = await Product.create({
       ...req.fields,
@@ -29,7 +30,7 @@ export const getAllProductController = async (req, res) => {
     const products = await Product.find({})
       // .select("-photo")
       .populate("category")
-      .limit(10)
+      .limit(20)
       .sort({ date: 1 });
     return res
       .status(200)
@@ -114,8 +115,8 @@ export const productFiltersController = async (req, res) => {
       });
       args.$or = pricearr;
     }
-      const products = await Product.find(args);
-    
+    const products = await Product.find(args);
+
     res.status(200).send({
       products,
     });
@@ -130,30 +131,31 @@ export const productFiltersController = async (req, res) => {
 };
 
 // search product controller
-export const searchProductController = async (req,res)=>{
+export const searchProductController = async (req, res) => {
   try {
-    const {keyword} = req.params;
-   
-const regx = new RegExp(keyword,'i');
-    const searchProduct = await Product.find({$or:[
-      {name:regx},
-      {description:regx}
-    ]}); 
+    const { keyword } = req.params;
+    const regx = new RegExp(keyword, 'i');
+    const searchProduct = await Product.find({
+      $or: [
+        { name: regx },
+        { description: regx }
+      ]
+    });
     res.status(200).send(searchProduct);
   } catch (error) {
     console.error(error);
-    res.status(400).send({message:"error in searching product",error})
+    res.status(400).send({ message: "error in searching product", error })
   }
 }
 
 // Similar product controller 
-export const similarProductController = async(req,res)=>{
-  try{
-const {prodId,category} = req.params; 
-const similarP = await Product.find({category:category,_id:{$ne:prodId}}).limit(4).populate("category");
-res.status(200).send({products: similarP});
-  }catch (error) {
+export const similarProductController = async (req, res) => {
+  try {
+    const { prodId, category } = req.params;
+    const similarP = await Product.find({ category: category, _id: { $ne: prodId } }).limit(4).populate("category");
+    res.status(200).send({ products: similarP });
+  } catch (error) {
     console.error(error);
-    res.status(400).send({message:"error in getting similar product",error})
+    res.status(400).send({ message: "error in getting similar product", error })
   }
 }

@@ -1,16 +1,24 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
+import { useNavigate } from 'react-router-dom';
 
 function SearchProduct() {
- 
+  const [query, setQuery] = useState('');
+  const navigation = useNavigate();
+  const hendelSearch = (e) => {
+    e.preventDefault()
+    navigation(`/search?q=${query}`);
+    setQuery('');
+  }
+
   return (
-    <div className='header_search'> 
-      <form role="search" onSubmit={()=>{}}>
+    <div className='header_search'>
+      <form role="search" onSubmit={e=>hendelSearch(e)}>
         <input type="search"
           placeholder="Search"
-          aria-label="Search"  
-          autoFocus = {(window.innerWidth<768)?true:false}
-         
-          
+          aria-label="Search"
+          autoFocus={(window.innerWidth < 768) ? true : false}
+          onChange={(e) => setQuery(e.target.value)}
+          value={query}
         />
         <button className="header_search_btn" type="submit" >
           <svg width="14" height="14" viewBox="0 0 14 14" fill="#404040" xmlns="http://www.w3.org/2000/svg">

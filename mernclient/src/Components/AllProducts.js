@@ -158,7 +158,7 @@ function AllProducts() {
               </div>
             </div>
             <div className="col-md-9">
-              <h1>All Product</h1>
+              <h1 className="all_product_heading">Candela's Collection</h1>
               <div className="row">
                 {products &&
                   products.map((product) => (
