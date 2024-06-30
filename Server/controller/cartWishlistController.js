@@ -5,7 +5,9 @@ import Wishlist from '../models/WishlistModel.js';
 export const getWishlistController = async (req, res) => {
     try {
         const userId = req.params.userId;
+        
         const wishlist = await Wishlist.findOne({ user: userId }).populate('products')
+
         if (!wishlist) {
             await Wishlist.create({ user: userId, products: [] })
         }
@@ -26,7 +28,7 @@ export const addInWishlistController = async (req, res) => {
             await wishlist.save();
         }
         await wishlist.populate('products');
-        res.status(200).send({wishlist });
+        res.status(200).send({ wishlist });
     } catch (error) {
         console.error("Error while adding item wishlist " + error)
     }
@@ -43,14 +45,14 @@ export const removeFromWishlistController = async (req, res) => {
             { new: true }
         );
         await wishlist.populate('products');
-        res.status(200).send({wishlist });
+        res.status(200).send({ wishlist });
     } catch (error) {
         console.error("Error occured while removing item from from wishlist " + error);
     }
 }
 
 // Cart Operation
-export const getCartItemsController = async(req,res)=>{
+export const getCartItemsController = async (req, res) => {
     try {
         const userId = req.params.userId;
         const cart = await Cart.findOne({ user: userId }).populate('products')

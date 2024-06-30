@@ -25,6 +25,7 @@ function CreateProducts() {
   const [productVariable, setProductVariable] = useState({
     name: "",
     description: "",
+    product_brand: "",
     price: "",
     quantity: "",
     photo: "",
@@ -127,6 +128,17 @@ function CreateProducts() {
                       required
                       name="quantity"
                       value={productVariable.quantity}
+                      onChange={pDataHandleChange}
+                    />
+                  </div>
+                  <div className="col-md-6 mt-3">
+                    <input
+                      type="text"
+                      className="form-control"
+                      placeholder="Product Brand"
+                      required
+                      name="product_brand"
+                      value={productVariable.product_brand}
                       onChange={pDataHandleChange}
                     />
                   </div>

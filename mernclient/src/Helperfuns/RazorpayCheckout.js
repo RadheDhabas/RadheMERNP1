@@ -14,7 +14,7 @@ export const handleCheckout = async (cart,auth) => {
         const { amount, id: order_id, currency } = response.data;
 
         const options = {
-            key: process.env.REACT_APP_RZ_KEY_ID, // Enter the Key ID generated from the Dashboard
+            key: process.env.REACT_APP_RZ_KEY_ID, // Enter the Key ID generated from the Razorpay  Dashboard
             amount: amount.toString(),
             currency: currency,
             name: "CandelA",
@@ -45,7 +45,7 @@ export const handleCheckout = async (cart,auth) => {
                 );
                 if (result.data) {
                     store.dispatch(ResetCart());
-                    window.location.href = "/dashboard/orders"
+                    window.location.href = "/my-orders"
                 }
                 // here we can show messages like order placed or something else
             },

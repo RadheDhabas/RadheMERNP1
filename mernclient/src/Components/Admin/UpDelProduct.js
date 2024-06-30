@@ -14,6 +14,7 @@ function UpDelProduct() {
   const [productVariable, setProductVariable] = useState({
     name: "",
     description: "",
+    product_brand:"",
     quantity: "",
     price: "",
     photo: "",
@@ -30,6 +31,7 @@ function UpDelProduct() {
       ...productVariable,
       name: data.product.name,
       description: data.product.description,
+      product_brand:data.product.product_brand,
       price: data.product.price,
       quantity: data.product.quantity,
       photo: data.product.photo,
@@ -67,7 +69,7 @@ function UpDelProduct() {
       navigate("/admin/products");
 
     } catch (error) {
-      
+      console.error("Error occured while deleting product")
     }
   
   };
@@ -96,6 +98,7 @@ function UpDelProduct() {
       setProductVariable({
         name: "",
         description: "",
+        product_brand:"",
         price: "",
         quantity: "",
         photo: "",
@@ -142,6 +145,18 @@ function UpDelProduct() {
                       placeholder="Product Name"
                       name="name"
                       value={productVariable.name}
+                      onChange={pDataHandleChange}
+                    />
+                  </div>
+                  <div className="col-md-6 mt-3">
+                    <label>Product Brand: </label>
+                    <input
+                      type="text"
+                      className="form-control"
+                      required
+                      placeholder="Product Brand"
+                      name="name"
+                      value={productVariable.product_brand}
                       onChange={pDataHandleChange}
                     />
                   </div>

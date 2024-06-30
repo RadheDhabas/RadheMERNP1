@@ -4,8 +4,10 @@ import axios from 'axios';
 // Async thunks
 export const fetchWishlist = createAsyncThunk('wishlist/fetchWishlist', async (userId, { rejectWithValue }) => {
     try {
+        
         const response = await axios.get(`${process.env.REACT_APP_USER_AUTH}/api/wishlist/${userId}`);
         return response.data.products;
+        
     } catch (error) {
         return rejectWithValue(error.response ? error.response.data.message : 'An error occurred');
     }

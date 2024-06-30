@@ -84,7 +84,7 @@ export const googleLoginController = async (req, res) => {
     try {
         const { tokenId } = req.body;
         const user_data = await axios.get("https://www.googleapis.com/oauth2/v3/userinfo?access_token=" + tokenId); 
-        console.log(user_data.data)
+       
         // if (user_data.aud !== process.env.GOOGLE_CLIENT_ID) {
         //     return res.status(401).json({ success: false, message: 'Invalid token' });
         // }

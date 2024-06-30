@@ -16,7 +16,7 @@ function Orders() {
   const getOrders = async () => {
     try {
       const response = await axios.get(
-        `${process.env.REACT_APP_USER_AUTH}/api/orders//buyer-order`, {
+        `${process.env.REACT_APP_USER_AUTH}/api/orders/buyer-order`, {
         headers: {
           'auth-token': auth?.token
         }
@@ -39,39 +39,46 @@ function Orders() {
           </div>
           <div className="col-md-9">
             <div className="buyer-orders">
-              <h1>Buyer Orders</h1>
-              {orders.length === 0 ? (
-                <p>No orders found</p>
-              ) : (
-                <table className="orders-table">
-                  <thead>
-                    <tr>
-                      <th>Serial No.</th>
-                      <th>Order ID</th>
-                      <th>Buyer</th>
-                      <th>Products</th>
-                      <th>Status</th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    {orders.map((order, index) => (
-                      <tr key={order._id}>
-                        <td>{index + 1}</td>
-                        <td>{order._id}</td>
-                        <td>{order.buyer}</td>
-                        <td>
-                          {order.products.map((product) => (
-                            <div key={product._id}>
-                              {product.name} (Quantity: {product.quantity})
-                            </div>
-                          ))}
-                        </td>
-                        <td>{order.status}</td>
-                      </tr>
-                    ))}
-                  </tbody>
-                </table>
-              )}
+              <h1 className='all_product_heading'>My Orders</h1>
+              {loading ? <div className="d-flex justify-content-center">
+                <div className="spinner-border" role="status">
+                  <span className="sr-only"></span>
+                </div>
+              </div>
+                : (
+                  orders.length === 0 ? (
+                    <p>No orders found</p>
+                  ) :
+                    <table className="orders-table">
+                      <thead>
+                        <tr>
+                          <th>Serial No.</th>
+                          <th>Order ID</th>
+                          <th>Buyer</th>
+                          <th>Products</th>
+                          <th>Status</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        {orders.map((order, index) => (
+                          <tr key={order._id}>
+                            <td>{index + 1}</td>
+                            <td>{order._id}</td>
+                            <td>{order.buyer}</td>
+                            <td>
+                              {order.products.map((product) => (
+                                <div key={product._id}>
+                                  {product.name} (Quantity: {product.quantity})
+                                </div>
+                              ))}
+                            </td>
+                            <td>{order.status}</td>
+                          </tr>
+                        ))}
+                      </tbody>
+                    </table>
+                )
+              }
             </div>
           </div>
         </div>

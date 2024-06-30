@@ -24,7 +24,8 @@ const Header = () => {
     
     if (!auth.isAuthenticated) {
       dispatch(ResetWishlist());
-      dispatch(ResetCart())
+      dispatch(ResetCart());
+      
     }
     dispatch(fetchWishlist(auth?.user?._id))
   }, [auth])

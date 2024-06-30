@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, Suspense, lazy } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import Layout from "./Layout/Layout";
 import axios from "axios";
@@ -7,35 +7,39 @@ import Home_banner from "../elements/Home_banner";
 import { useDispatch, useSelector } from "react-redux";
 import Homeslider from "./HomePage/Homeslider";
 import { addToWishlist, removeFromWishlist } from '../Redux/Reducers/wishlistSlice.js';
+import Spinner from "./Spinner.js";
 function AllProducts() {
   const [products, setProducts] = useState([]);
+  const [loading, setLoading] = useState(false);
   const [categories, setCategories] = useState([]);
   const [filterCat, setFilterCat] = useState([]);
   const [filterPrice, setFilterPrice] = useState([]);
-  const auth = useSelector(state=>state.auth);
+  const auth = useSelector(state => state.auth);
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const wishlist = useSelector((state) => state.wishlist);
   const userId = auth?.user?._id;
- 
-  const updateWishlist = (productId)=>{
-    const check_wl = wishlist?.some(i=>i._id===productId);
+
+  const updateWishlist = (productId) => {
+    const check_wl = wishlist?.some(i => i._id === productId);
     check_wl ? dispatch(removeFromWishlist({ userId, productId }))
-      : dispatch(addToWishlist({userId, productId }))
-    }
-  
+      : dispatch(addToWishlist({ userId, productId }))
+  }
+
   useEffect(() => {
     getProducts();
     getAllCategory();
   }, []);
   // get all products
   const getProducts = async () => {
+    setLoading(true)
     try {
       const response = await axios.get(
         `${process.env.REACT_APP_USER_AUTH}/api/product/all-products`
       );
       if (response.status == 200) {
         setProducts(response.data?.products);
+        setLoading(false);
       }
     } catch (error) {
       console.error(error);
@@ -141,53 +145,59 @@ function AllProducts() {
                       </svg>
                     </a>
                     <div className="filter_type_option collapse" id="ftype2">
-                    {Prices?.map((price) => (
-                    <div key={price._id} className="check_options">
-                      <input
-                        type="checkbox"
-                        onChange={(e) =>
-                          handlePriceFilter(e.target.checked, price.array)
-                        }
-                      />
-                      <label>{price.name}</label>
+                      {Prices?.map((price) => (
+                        <div key={price._id} className="check_options">
+                          <input
+                            type="checkbox"
+                            onChange={(e) =>
+                              handlePriceFilter(e.target.checked, price.array)
+                            }
+                          />
+                          <label>{price.name}</label>
+                        </div>
+                      ))}
                     </div>
-                  ))}
-                    </div>
-                  </div> 
+                  </div>
                 </div>
               </div>
             </div>
             <div className="col-md-9">
               <h1 className="all_product_heading">Candela's Collection</h1>
-              <div className="row">
-                {products &&
-                  products.map((product) => (
-                    <div
-                      className="col-lg-3 col-md-4 col-6"
-                      key={product._id} >
+              {loading ? <div className="d-flex justify-content-center">
+                <div className="spinner-border" role="status">
+                  <span className="sr-only"></span>
+                </div>
+              </div> :
+                <div className="row">
+                  {products &&
+                    products.map((product) => (
+                      <div
+                        className="col-lg-3 col-md-4 col-6"
+                        key={product._id} >
 
-                      <div className="product_card">
-                        <Link className="product_image" to={`/product/${product.slug}`}>
-                          <img
-                            src={product.photo}
-                            className="img-fluid"
-                            alt={product.name}
-                          />
-                        </Link>
+                        <div className="product_card">
+                          <Link className="product_image" to={`/product/${product.slug}`}>
+                            <img
+                              src={product.photo}
+                              className="img-fluid"
+                              alt={product.name}
+                            />
+                          </Link>
 
-                        <Link className="p_details" to={`/product/${product.slug}`}>
-                          <p className="brand">{product.product_brand}</p>
-                          <p className="p-name">{product.name}</p>
-                          <p className="p-price">Rs. {product.price} </p>
-                        </Link>
+                          <Link className="p_details" to={`/product/${product.slug}`}>
+                            <p className="brand">{product.product_brand}</p>
+                            <p className="p-name">{product.name}</p>
+                            <p className="p-price">Rs. {product.price} </p>
+                          </Link>
 
-                        <button className={`whislist_btn ${wishlist?.some(i=>i._id==product._id) ? "wishlisted" : ''}`} onClick={() => { auth?.user ? updateWishlist(product._id) : navigate('/login') }}>
-                          <svg xmlns="http://www.w3.org/2000/svg" className="_1l0elc" width="28" height="28" viewBox="0 0 20 16"><path d="M8.695 16.682C4.06 12.382 1 9.536 1 6.065 1 3.219 3.178 1 5.95 1c1.566 0 3.069.746 4.05 1.915C10.981 1.745 12.484 1 14.05 1 16.822 1 19 3.22 19 6.065c0 3.471-3.06 6.316-7.695 10.617L10 17.897l-1.305-1.215z" fill="" className="eX72wL" stroke="#FFF" fillRule="evenodd" opacity=".9"></path></svg>
-                        </button>
+                          <button className={`whislist_btn ${wishlist?.some(i => i._id == product._id) ? "wishlisted" : ''}`} onClick={() => { auth?.user ? updateWishlist(product._id) : navigate('/login') }}>
+                            <svg xmlns="http://www.w3.org/2000/svg" className="_1l0elc" width="28" height="28" viewBox="0 0 20 16"><path d="M8.695 16.682C4.06 12.382 1 9.536 1 6.065 1 3.219 3.178 1 5.95 1c1.566 0 3.069.746 4.05 1.915C10.981 1.745 12.484 1 14.05 1 16.822 1 19 3.22 19 6.065c0 3.471-3.06 6.316-7.695 10.617L10 17.897l-1.305-1.215z" fill="" className="eX72wL" stroke="#FFF" fillRule="evenodd" opacity=".9"></path></svg>
+                          </button>
+                        </div>
                       </div>
-                    </div>
-                  ))}
-              </div>
+                    ))}
+                </div>
+              }
             </div>
           </div>
         </div>

@@ -49,14 +49,14 @@ function Products() {
                       />
                     </Link>
 
-                    <Link className="p_details" to={`/admin/product/manage/${product.slug}`}>
+                    <div className="p_details" >
                       <p className="brand">{product.product_brand}</p>
                       <p className="p-name">{product.name}</p>
-                      <p className="p-price">Rs. {product.price} </p>
-                      <button className="header_login_btn">
+                      <p className="p-price pb-2">Rs. {product.price} </p>
+                      <Link className="header_login_btn" to={`/admin/product/manage/${product.slug}`}>
                         Manage
-                      </button>
-                    </Link>
+                      </Link>
+                    </div>
  
                   </div>
                 </div>
