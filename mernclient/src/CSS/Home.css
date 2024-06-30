@@ -1,5 +1,5 @@
 .homeslider1{
-    overflow: hidden;
+    overflow-x: clip;
 }
  .to_hot_to_missed{
     display: flex;
@@ -16,4 +16,12 @@
  .to_hot_to_missed .img_items{
     flex: 0 0 50%;
     padding: 3px;
+ }
+ .slick-prev{
+   left: 10px !important;
+   z-index: 5;
+ }
+ .slick-next{
+   right: 10px !important;
+   z-index: 5;
  }

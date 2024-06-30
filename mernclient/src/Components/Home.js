@@ -6,8 +6,7 @@ export default function Home(){
 
   return(
     <Layout>
-    {/* <Home_banner></Home_banner> */}
-    <Homeslider></Homeslider>
+      <Homeslider></Homeslider>
     <div className="container-fluid">
       <p className='to_hot_to_missed_text'>
       TOO HOT TO BE MISSED

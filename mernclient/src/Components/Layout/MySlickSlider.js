@@ -11,7 +11,7 @@ function MySlickSlider() {
     infinite: true,
     margin: 10,
     speed: 500,
-    dots: true,
+    dots: false,
     autoplaySpeed: 3000,
     autoplay: true,
 };

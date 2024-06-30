@@ -5,7 +5,7 @@ function UserMenu() {
     <>
        <div className="text-center">
         <div className="list-group ">
-          <h4>User Panel</h4>
+          <h4 className='all_product_heading'>User Panel</h4>
           <NavLink
             to="/my-account"
             className="list-group-item list-group-item-action"

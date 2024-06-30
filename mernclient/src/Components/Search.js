@@ -39,7 +39,7 @@ function Search() {
           <div>Please try with a different search keyword</div>
         ) : (
           <div>
-            <h1>Searched Products <span>{product.length} Found</span></h1>
+            <h1 className="all_product_heading">Searched Products <span>{product.length} Found</span></h1>
             <div className="row">
             {product &&
                   product.map((product) => (

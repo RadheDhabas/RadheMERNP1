@@ -1,4 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit";
+import { ToastContainer,toast } from "react-toastify";
 // const initialState = {
 //     cart:[],
 // };
@@ -10,9 +11,23 @@ const cartSlice = createSlice({
         addToCart: (state, action) => {
             const newItem = action.payload;
             const existingItem = state.find(item => item._id === newItem._id);
-
+            
             if (!existingItem) {
                 state.push({ ...newItem, quantity: 1 });
+                toast.success('Item added to cart!', {
+                    position: "bottom-center",
+                    autoClose: 500,
+                    progress: undefined,
+                    theme: "light",
+                    });
+            }
+            else{
+                toast.success('Item exist in cart!', {
+                    position: "bottom-center",
+                    autoClose: 500,
+                    progress: undefined,
+                    theme: "light",
+                    });
             }
             return state
         },
