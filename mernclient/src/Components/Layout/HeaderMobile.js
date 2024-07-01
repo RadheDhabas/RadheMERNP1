@@ -43,29 +43,21 @@ function HeaderMobile() {
                 className={`nav_link ${location.pathname === "/" ? "active" : ""
                   }`}
                 aria-current="page"
-                to="/"
+                to="/all-products"
               >
-                MEN
+                All Products
               </Link>
             </li>
             <li className="mob_explore_link">
               <Link
                 className={`nav_link ${location.pathname === "/about" ? "active" : ""
                   }`}
-                to="/about"
+                to="/my-orders"
               >
-                WOMEN
+                My Order
               </Link>
             </li>
-            <li className="mob_explore_link">
-              <Link
-                className={`nav_link ${location.pathname === "/about" ? "active" : ""
-                  }`}
-                to="/about"
-              >
-                ELECTRONICS
-              </Link>
-            </li>
+            
             <li className="mob_explore_link">
 
               {auth?.user &&
