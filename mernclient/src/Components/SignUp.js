@@ -43,18 +43,19 @@ const Signup = () => {
       }),
     });
     const json = await response.json();
-    console.log(json);
-    if (json.status == 200) {
+    if (json.message) {
       toast.success( "Account created successfully", {
         position: "top-center",
         autoClose: 1000,
         });
       setTimeout(()=>navigate("/login") ,2000);
-    } 
+    }
+    else{
     toast.error( json.error, {
       position: "top-right",
       autoClose: 2000,
       });
+    }
   };
 
   const googleLogin = useGoogleLogin({
