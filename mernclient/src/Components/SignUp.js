@@ -43,6 +43,7 @@ const Signup = () => {
       }),
     });
     const json = await response.json();
+    console.log(json);
     if (json.status == 200) {
       toast.success( "Account created successfully", {
         position: "top-center",
