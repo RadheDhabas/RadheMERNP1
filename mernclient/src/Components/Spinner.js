@@ -6,18 +6,18 @@ function Spinner() {
   const location = useLocation();
   const [count, setCount] = useState(2);
   useEffect(() => {
-    const interval = setInterval(() => {
-      setCount((prevValue) => --prevValue);
+   const timer = setTimeout(() => {
+      if (count === 1) {
+        navigate("/login", { state: location.pathname });
+      }
+      setCount((prev) => prev - 1);
     }, 1000);
-    count === 0 &&
-      navigate(`/login`, {
-        state: location.pathname,
-      });
-    return () => clearInterval(interval); 
+
+    return () => clearTimeout(timer);
   }, [count, navigate, location]);
   return (
     <Layout>
-      <div className="d-flex justify-content-center">
+      <div className="d-flex justify-content-center align-items-center" style={{ height: "100vh" }}>
         <div className="spinner-border" role="status">
           <span className="sr-only"></span>
         </div>
