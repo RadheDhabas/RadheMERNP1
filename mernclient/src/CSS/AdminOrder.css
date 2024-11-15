@@ -39,4 +39,70 @@
     border-radius: 4px;
     border: 1px solid #ccc;
   }
+.custom-table {
+  width: 100%;
+  min-width: 100%;
+  color: #1a202c; /* Gray 900 */
+  display: none; /* Hidden by default */
+}
+
+@media (min-width: 768px) {
+  .custom-table {
+    display: table; /* Visible for medium screens and above */
+  }
+}
+
+.custom-table-header {
+  border-radius: 0.5rem; /* Rounded corners */
+  text-align: left;
+  font-size: 0.875rem; /* Text size: Small */
+  font-weight: 400; /* Normal font weight */
+}
+
+.custom-th {
+  padding: 1.25rem 1rem; /* Spacing for header cells */
+  font-weight: 500; /* Medium font weight */
+}
+
+.customer-column {
+  padding-left: 1.5rem; /* Additional padding for customer column */
+}
+
+.custom-action-column {
+  padding: 1.25rem 0.75rem; /* Specific padding for action column */
+}
+
+.custom-table-body {
+  background-color: #ffffff; /* White background */
+}
+
+.custom-row {
+  width: 100%;
+  border-bottom: 1px solid #e2e8f0; /* Light gray border */
+  font-size: 0.875rem; /* Text size: Small */
+}
+
+.custom-row:last-of-type {
+  border-bottom: none;
+}
+
+.custom-cell {
+  white-space: nowrap;
+  padding: 0.75rem 1rem; /* Cell padding */
+}
+
+.customer-cell {
+  padding-left: 1.5rem; /* Left padding for customer column */
+}
+
+.customer-info {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem; /* Space between items */
+}
+
+.customer-image {
+  border-radius: 50%; /* Rounded image */
+}
+
   
