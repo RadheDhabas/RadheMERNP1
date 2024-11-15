@@ -30,6 +30,22 @@ function Orders() {
       setLoading(false);
     }
   };
+  function formatCurrency(amount) {
+  if (typeof amount !== 'number') return '-';
+  return new Intl.NumberFormat('en-US', {
+    style: 'currency',
+    currency: 'INR', 
+  }).format(amount);
+}
+function formatDateToLocal(dateString) {
+  if (!dateString) return '-';
+  const date = new Date(dateString);
+  return date.toLocaleDateString('en-US', {
+    year: 'numeric',
+    month: 'short',
+    day: 'numeric',
+  });
+}
   return (
     <Layout>
       <div className="container dashboard">
