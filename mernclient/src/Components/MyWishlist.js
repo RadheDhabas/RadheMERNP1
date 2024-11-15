@@ -56,7 +56,7 @@ function MyWishlist() {
                     <img src="https://images.bewakoof.com/web/wishlistEmpty.svg" title="Empty Cart Page Doodle" alt="Empty Cart Page Doodle" width="150px" />
                   </div>
                   <div className="empty_cart_text">Hey! Your wishlist is empty.</div>
-                  <button className='start_shoping_btn' onClick={() => navigate('/')}>
+                  <button className='start_shoping_btn' onClick={() => navigate('/all-products')}>
                     Start Shoping
                   </button>
                 </div>
