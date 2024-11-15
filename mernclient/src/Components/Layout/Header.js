@@ -37,25 +37,17 @@ const Header = () => {
           CandelA
         </Link>
         <ul className="header_category_list for_pc_only">
-          <li className="">
-            <Link
-              className={`nav_link ${location.pathname === "/" ? "active" : ""
-                }`}
-              aria-current="page"
-              to="/"
-            >
-              MEN
-            </Link>
-          </li>
-          <li className="">
-            <Link
-              className={`nav_link ${location.pathname === "/about" ? "active" : ""
-                }`}
-              to="/about"
-            >
-              WOMEN
-            </Link>
-          </li>
+          // <li className="">
+          //   <Link
+          //     className={`nav_link ${location.pathname === "/" ? "active" : ""
+          //       }`}
+          //     aria-current="page"
+          //     to="/"
+          //   >
+          //     MEN
+          //   </Link>
+          // </li>
+         
           <li className="">
             <Link
               className={`nav_link ${location.pathname === "/about" ? "active" : ""
@@ -63,6 +55,15 @@ const Header = () => {
               to="/all-products"
             >
               All Products
+            </Link>
+          </li>
+                 <li className="">
+            <Link
+              className={`nav_link ${location.pathname === "/about" ? "active" : ""
+                }`}
+              to="/about"
+            >
+              About
             </Link>
           </li>
         </ul>
