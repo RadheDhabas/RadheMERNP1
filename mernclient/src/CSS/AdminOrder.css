@@ -39,17 +39,15 @@
     border-radius: 4px;
     border: 1px solid #ccc;
   }
+/* user order css */
 .custom-table {
   width: 100%;
   min-width: 100%;
-  color: #1a202c; /* Gray 900 */
-  display: none; /* Hidden by default */
+  color: #1a202c;
 }
-
-@media (min-width: 768px) {
-  .custom-table {
-    display: table; /* Visible for medium screens and above */
-  }
+.order_table{
+    padding: 0 8px 8px;
+    background:rgb(249, 250, 251);
 }
 
 .custom-table-header {
