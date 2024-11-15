@@ -49,34 +49,42 @@ function Orders() {
                   orders.length === 0 ? (
                     <p>No orders found</p>
                   ) :
-                    <table className="orders-table">
-                      <thead>
-                        <tr>
-                          <th>Serial No.</th>
-                          <th>Order ID</th>
-                          <th>Buyer</th>
-                          <th>Products</th>
-                          <th>Status</th>
-                        </tr>
-                      </thead>
-                      <tbody>
-                        {orders.map((order, index) => (
-                          <tr key={order._id}>
-                            <td>{index + 1}</td>
-                            <td>{order._id}</td>
-                            <td>{order.buyer}</td>
-                            <td>
-                              {order.products.map((product) => (
-                                <div key={product._id}>
-                                  {product.name} (Quantity: {product.quantity})
-                                </div>
-                              ))}
-                            </td>
-                            <td>{order.status}</td>
-                          </tr>
-                        ))}
-                      </tbody>
-                    </table>
+                    (
+      <table className="custom-table">
+        <thead className="custom-table-header">
+          <tr>
+            <th scope="col" className="custom-th customer-column">Product</th>
+            <th scope="col" className="custom-th">Order Id</th>
+            <th scope="col" className="custom-th">Amount</th>
+            <th scope="col" className="custom-th">Date</th>
+            <th scope="col" className="custom-th">Status</th>
+          </tr>
+        </thead>
+        <tbody className="custom-table-body">
+          {orders.map((order, index) => (
+            <tr key={order._id} className="custom-row">
+              <td className="custom-cell customer-cell">
+                <div className="customer-info">
+                  {order.products.map((product) => (
+                    <div key={product._id}>
+                      <img src={order.photo} className="customer-image" width={28} height={28} alt='' />
+                      <p> {product.name}</p>
+                    </div>
+                  ))}
+                </div>
+              </td>
+              <td className="custom-cell">{order._id}</td>
+              <td className="custom-cell">{formatCurrency(order.payment)}</td>
+              <td className="custom-cell">{formatDateToLocal(order.createdAt)}</td>
+              <td className="custom-cell">
+                {order.status}
+              </td>
+            </tr>
+          ))}
+        </tbody>
+      </table>
+
+)
                 )
               }
             </div>
