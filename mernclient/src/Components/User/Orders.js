@@ -83,7 +83,7 @@ function formatDateToLocal(dateString) {
                 <div className="customer-info">
                   {order.products.map((product) => (
                     <div key={product._id}>
-                      <img src="${product.photo}" className="customer-image" width={28} height={28} alt='' />
+                      <img src={product.photo} className="customer-image" width={28} height={28} alt='' />
                       <p> {product.name}</p>
                     </div>
                   ))}
