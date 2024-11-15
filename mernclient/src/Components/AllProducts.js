@@ -163,7 +163,7 @@ function AllProducts() {
             </div>
             <div className="col-md-9">
               <h1 className="all_product_heading">Candela's Collection</h1>
-              {loading ? <div className="d-flex justify-content-center" style={{"position":"absolute", "top":"50%", "left":"50%", "transform":"translate(-50%,-50%)"}}>
+              {loading ? <div className="d-flex justify-content-center">
                 <div className="spinner-border" role="status">
                   <span className="sr-only"></span>
                 </div>
