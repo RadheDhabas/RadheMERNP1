@@ -65,7 +65,7 @@ function formatDateToLocal(dateString) {
                   orders.length === 0 ? (
                     <p>No orders found</p>
                   ) :
-                    (
+                    <div className='order_table'>
       <table className="custom-table">
         <thead className="custom-table-header">
           <tr>
@@ -99,8 +99,8 @@ function formatDateToLocal(dateString) {
           ))}
         </tbody>
       </table>
+            </div>
 
-)
                 )
               }
             </div>
