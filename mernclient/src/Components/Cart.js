@@ -113,7 +113,7 @@ function Cart() {
               <img src="https://images.bewakoof.com/images/doodles/empty-cart-page-doodle.png" title="Empty Cart Page Doodle" alt="Empty Cart Page Doodle" width="150px" />
             </div>
             <div className="empty_cart_text">Nothing in the bag!</div>
-            <button className='start_shoping_btn' onClick={() => navigate('/')}>
+            <button className='start_shoping_btn' onClick={() => navigate('/all-products')}>
               Start Shoping
             </button>
           </div>
